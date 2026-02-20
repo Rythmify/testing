@@ -35,7 +35,7 @@ testing/                                   # Main testing repo
 │       └── ...
 │
 ├──  k6/                                     # Stress Tests
-│   ├──  scenarios/                           # Load test scenarios
+│   ├──  scenarios/                           
 │   │   ├──  auth-scenarios/
 │   │   ├──  track-scenarios/
 │   │   └──  social-scenarios/
@@ -43,14 +43,10 @@ testing/                                   # Main testing repo
 │   └──  config/                               # Thresholds configuration
 │
 ├──  reports/                                 # Test reports
-│   ├──  coverage/
-│   ├──  performance/
-│   └──  screenshots/
-│
-└──  scripts/                                 # Automation scripts
-    ├── 📄 run-cypress.sh
-    ├── 📄 run-patrol.sh
-    └── 📄 run-k6.sh
+    ├──  coverage/
+    ├──  performance/
+    └──  screenshots/
+
 ```
     
 ## Installation Guide
