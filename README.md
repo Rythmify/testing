@@ -42,7 +42,7 @@ testing/                                   # Main testing repo
 │   │
 │   └──  config/                               # Thresholds configuration
 │
-├──  reports/                                 # Test reports
+└──  reports/                                 # Test reports
     ├──  coverage/
     ├──  performance/
     └──  screenshots/
@@ -66,4 +66,44 @@ choco install k6
 # Or download from https://k6.io/docs/get-started/installation/
 ```
 ## To start K6
-k6 run script.js
+```bash
+k6 run [file name].js
+```
+## TO start cypress
+```bash
+npx cypress open 
+```
+# Workflow (Step-by-Step)
+Make sure your local main is updated:
+```bash
+git checkout main
+git pull origin main
+```
+2.Create a new branch:
+```bash
+git checkout -b feature/<your-task-name>
+```
+
+3.Work on your task.
+
+4.Commit your changes with a clear message:
+```bash
+git add .
+git commit -m ""
+```
+
+5.Push your branch:
+```
+git push origin feature/<your-task-name>
+```
+
+6.Open a Pull Request (PR) to main.
+```
+Go to the repository on GitHub
+
+Click "Compare & pull request"
+
+Add a clear title and description
+```
+
+7.Wait for review and approval before merging
