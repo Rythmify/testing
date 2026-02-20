@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "cypress": "^15.10.0",
+    "jest": "^30.2.0"
+  },
+  "dependencies": {
+    "k6": "^0.0.0"
+  }
+}
