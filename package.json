@@ -1,6 +1,39 @@
 {
+  "name": "testing-suite",
+  "version": "1.0.0",
+  "description": "Comprehensive testing suite with Web E2E, Mobile & Desktop E2E, and Performance Testing",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run:web": "cypress run --spec 'cypress/e2e/**/*.cy.js'",
+    "appium:test": "appium",
+    "k6:run": "k6 run k6/scenarios/",
+    "k6:auth": "k6 run k6/scenarios/auth-scenarios.js",
+    "k6:track": "k6 run k6/scenarios/track-scenarios.js",
+    "k6:social": "k6 run k6/scenarios/social-scenarios.js"
+  },
+  "dependencies": {
+    "webdriverio": "^8.0.0",
+    "appium": "^2.0.0",
+    "appium-xcuitest-driver": "^7.0.0",
+    "appium-uiautomator2-driver": "^2.0.0",
+    "appium-windows-driver": "^2.0.0"
+  },
   "devDependencies": {
     "cypress": "^15.10.0",
-    "jest": "^30.2.0"
-  }
+    "@wdio/cli": "^8.0.0",
+    "@wdio/local-runner": "^8.0.0",
+    "@wdio/mocha-framework": "^8.0.0"
+  },
+  "keywords": [
+    "testing",
+    "e2e",
+    "cypress",
+    "appium",
+    "k6",
+    "performance"
+  ],
+  "author": "",
+  "license": ""
 }
