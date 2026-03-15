@@ -3,10 +3,10 @@ import { check, sleep } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '1m', target: 200},
-        { duration: '3m', target: 500},
-        { duration: '1m', target: 1000},
-        { duration: '2m', target: 0}
+        { duration: '1m', target: 200}, // ramp up to 200 users over 1 minute
+        { duration: '3m', target: 500}, // stay at 500 users for 3 minutes
+        { duration: '1m', target: 1000}, // ramp up to 1000 users over 1 minute
+        { duration: '2m', target: 0} // ramp down to 0 users over 2 minutes
     ],
     thresholds: {
         http_req_duration: ['p(95)<500'],
