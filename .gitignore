@@ -137,3 +137,10 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# APK files
+appium/apps/*.apk
+
+# Keep the apps folder tracked
+!appium/apps/.gitkeep
+appium/app/rythmify.apk
