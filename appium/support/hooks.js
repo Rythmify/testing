@@ -26,7 +26,7 @@ exports.afterTest = async function (test, context, { error, passed }) {
   } else {
     console.log(`❌ Failed: ${test.title}`);
     if (error) {
-      console.log(`   Reason: ${error.message}`);
+      console.log(`Reason: ${error.message}`);
     }
   }
 };

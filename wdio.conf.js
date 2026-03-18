@@ -1,4 +1,5 @@
 const path = require('path');
+const hooks = require('./appium/support/hooks');
 
 exports.config = {
 
@@ -48,19 +49,8 @@ exports.config = {
   },
 
   //Hooks
-  onPrepare() {
-    console.log(' Starting Rythmify Cross-Platform Tests...');
-  },
-
-  afterTest(test, context, { error }) {
-    if (error) {
-      const timestamp = new Date().toISOString().replace(/:/g, '-');
-      const name = test.title.replace(/\s+/g, '_');
-      driver.saveScreenshot(`./reports/screenshots/${name}_${timestamp}.png`);
-    }
-  },
-
-  onComplete() {
-    console.log('✅ All tests completed.');
-  },
+  before: hooks.before,
+  beforeTest: hooks.beforeTest,
+  afterTest: hooks.afterTest,
+  after: hooks.after,
 };
