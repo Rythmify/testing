@@ -55,6 +55,14 @@ class LoginPage extends BasePage {
   }
 
 
+  async isEmptyEmailErrorVisible() {
+    return this.isVisible(LoginSelectors.ERROR_EMPTY_EMAIL);
+  }
+
+  async isEmptyPasswordErrorVisible() {
+    return this.isVisible(LoginSelectors.ERROR_EMPTY_PASSWORD);
+  }
+
 }
 
 module.exports = new LoginPage();

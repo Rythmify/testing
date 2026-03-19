@@ -16,6 +16,11 @@ module.exports = {
   ERROR_MESSAGE:        '~invalid email or password',       //need to confirm from appium inspector
 
   // ─── Home Page ───
-  HOME_PAGE_ELEMENT:    '~home_element',        
+  HOME_PAGE_ELEMENT:    '~home_element',    
+  
+  // ─── Error Messages ───
+ERROR_INVALID_CREDENTIALS: '~invalid email or password',  
+ERROR_EMPTY_EMAIL:         '~Please enter your email',    
+ERROR_EMPTY_PASSWORD:      '~Please enter your password',
 
 };
