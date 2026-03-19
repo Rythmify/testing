@@ -2,20 +2,20 @@
 // Password screen
 module.exports = {
 
-  // ─── Email Screen ────────────────────────────────
+  // ─── Email Screen ───
   EMAIL_INPUT:          'android=new UiSelector().className("android.widget.EditText").instance(0)',
   CONTINUE_BUTTON:      '~Continue',
   GOOGLE_BUTTON:        '~Continue with Google',
   FACEBOOK_BUTTON:      '~Continue with Facebook',
   APPLE_BUTTON:         '~Continue with Apple',
 
-  // ─── Password Screen ─────────────────────────────
+  // ─── Password Screen ───
   PASSWORD_INPUT:       'android=new UiSelector().className("android.widget.EditText").instance(0)',
   SIGN_IN_BUTTON:       '~Sign in',
   FORGOT_PASSWORD_LINK: '~Forgot password?',   
-  // ERROR_MESSAGE:        '~error_message',       
+  ERROR_MESSAGE:        '~invalid email or password',       //need to confirm from appium inspector
 
-  // ─── Home Page ───────────────────────────────────
+  // ─── Home Page ───
   HOME_PAGE_ELEMENT:    '~home_element',        
 
 };

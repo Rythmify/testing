@@ -46,6 +46,15 @@ class LoginPage extends BasePage {
     return this.isVisible(LoginSelectors.HOME_PAGE_ELEMENT);
   }
 
+  async isErrorVisible() {
+    return this.isVisible(LoginSelectors.ERROR_MESSAGE);
+  }
+
+  async getErrorMessage() {
+    return this.getText(LoginSelectors.ERROR_MESSAGE);
+  }
+
+
 }
 
 module.exports = new LoginPage();

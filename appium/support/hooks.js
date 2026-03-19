@@ -13,8 +13,13 @@ exports.before = async function () {
 exports.beforeTest = async function (test) {
   console.log(`\n▶ Running: ${test.title}`);
 
-  // Reset app to clean state
-  await driver.reset();
+  // Terminate the app
+  await driver.terminateApp('com.example.rythmify');
+  await driver.pause(1000);
+
+  // Relaunch the app
+  await driver.activateApp('com.example.rythmify');
+  await driver.pause(3000);
 };
 
 // ─────────────────────────────────────────────
