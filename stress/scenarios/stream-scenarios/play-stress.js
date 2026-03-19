@@ -34,6 +34,8 @@ export default function () {
         JSON.stringify({ duration_played: 30 }),
         { headers: { 'Content-Type': 'application/json' } }
     );
+    console.log('play status: ' + response.status);
+    console.log('play body: ' + response.body);
 
     check(response, {
         'status is 200':       (r) => r.status === 200,
