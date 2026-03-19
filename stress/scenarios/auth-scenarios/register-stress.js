@@ -3,9 +3,9 @@ import { check, sleep } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '1m', target: 200}, // ramp up to 200 users over 1 minute
-        { duration: '3m', target: 500}, // stay at 500 users for 3 minutes
-        { duration: '1m', target: 1000}, // ramp up to 1000 users over 1 minute
+        { duration: '1m', target: 10}, // ramp up to 10 users over 1 minute
+        { duration: '3m', target: 15}, // stay at 15 users for 3 minutes
+        { duration: '1m', target: 30}, // ramp up to 30 users over 1 minute
         { duration: '2m', target: 0} // ramp down to 0 users over 2 minutes
     ],
     thresholds: {
@@ -21,14 +21,16 @@ export default function () {
         email: uniqueEmail,
         password: 'Test_1234',
         display_name: `TestUser_${__VU}_${__ITER}`,
-        gender: 'male'
+        gender: 'male',
+        date_of_birth: '1990-01-01'
     });
 
     const response = http.post('http://localhost:8080/api/v1/auth/register', payLoad,{
         headers: 
             { 'Content-Type': 'application/json'}}
     );
-    
+    console.log('register status: ' + response.status);
+    console.log('register body: ' + response.body);    
     check(response, {
     'status is 201': (r) => r.status === 201,
     'user was created': (r) => JSON.parse(r.body).data !== undefined,
