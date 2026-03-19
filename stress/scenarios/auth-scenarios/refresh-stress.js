@@ -16,7 +16,7 @@ export const options = {
 
 export default function () {
     http.post('http://localhost:8080/api/v1/auth/login',
-    JSON.stringify({ identifier: 'listener4@example.com', password: 'Listener1234!' }),
+    JSON.stringify({ identifier: 'listener3@example.com', password: 'Listener1234!' }),
     { headers: { 'Content-Type': 'application/json' } }
     );
     const response = http.post('http://localhost:8080/api/v1/auth/refresh',null, {
