@@ -27,9 +27,17 @@ class LoginPage extends BasePage {
   }
 
   async tapSignIn() {
-    await this.tap(LoginSelectors.SIGN_IN_BUTTON);
-    await this.pause(5000);
-  }
+  // DON'T dismiss keyboard — keep it open
+  // The View element only appears when keyboard is visible
+  
+  await driver.pause(1000);
+
+  // Tap the view that appears above keyboard
+  const signInView = await $('android=new UiSelector().className("android.view.View").instance(5)');
+  await signInView.waitForDisplayed({ timeout: 10000 });
+  await signInView.click();
+  await driver.pause(8000);
+}
 
   // ─── Full Login Flow ───
 
@@ -43,15 +51,15 @@ class LoginPage extends BasePage {
   // ─── Assertions ───
 
   async isHomePageVisible() {
-    return this.isVisible(LoginSelectors.HOME_PAGE_ELEMENT);
+    return this.isVisible(LoginSelectors.HOME_PAGE);
   }
 
-  async isErrorVisible() {
-    return this.isVisible(LoginSelectors.ERROR_MESSAGE);
+  async isInvalidCredentialsErrorVisible() {
+    return this.isVisible(LoginSelectors.ERROR_INVALID_CREDENTIALS);
   }
 
-  async getErrorMessage() {
-    return this.getText(LoginSelectors.ERROR_MESSAGE);
+  async getInvalidCredentialsErrorMessage() {
+    return this.getText(LoginSelectors.ERROR_INVALID_CREDENTIALS);
   }
 
 

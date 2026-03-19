@@ -21,20 +21,20 @@ describe('M1 - Authentication: Login', () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();
     await LoginPage.login('sohaila@rythmify.com', 'wrongpass1234');
-    const isErrorVisible = await LoginPage.isErrorVisible();
+    const isErrorVisible = await LoginPage.isInvalidCredentialsErrorVisible();
     expect(isErrorVisible).toBe(true);
-    const ErrorMessage = await LoginPage.getErrorMessage();
-    expect(ErrorMessage).toBe('invalid email or password');
+    const ErrorMessage = await LoginPage.getInvalidCredentialsErrorMessage();
+    expect(ErrorMessage).toBe('Invalid email or password.');
   });
 
   it('should show error with wrong email', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();
     await LoginPage.login('wrongemail@rythmify.com', 'sohaila123');
-    const isErrorVisible = await LoginPage.isErrorVisible();
+    const isErrorVisible = await LoginPage.isInvalidCredentialsErrorVisible();
     expect(isErrorVisible).toBe(true);
-    const ErrorMessage = await LoginPage.getErrorMessage();
-    expect(ErrorMessage).toBe('invalid email or password');
+    const ErrorMessage = await LoginPage.getInvalidCredentialsErrorMessage();
+    expect(ErrorMessage).toBe('Invalid email or password.');
   });
 
   //2. empty email or password
@@ -52,6 +52,7 @@ describe('M1 - Authentication: Login', () => {
     await WelcomePage.tapLogin();
     await LoginPage.fillEmail('sohaila@rythmify.com');
     await LoginPage.tapContinue();
+    await LoginPage.fillPassword('');
     await LoginPage.tapSignIn();
     await LoginPage.pause(1000);
     const isErrorVisible = await LoginPage.isEmptyPasswordErrorVisible();
