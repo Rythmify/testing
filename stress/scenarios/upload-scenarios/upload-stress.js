@@ -26,12 +26,13 @@ export default function () {
         const loginRes = http.post(
         `${BASE_URL}/auth/login`,
         JSON.stringify({
-            identifier: 'layla_mindset@example.com',
-            password: 'Artist1234!',
+            identifier: 'listener4@example.com',
+            password: 'Listener1234!',
         }),
         { headers: { 'Content-Type': 'application/json' } }
         );
-
+        console.log('login status: ' + loginRes.status);
+        console.log('login body: ' + loginRes.body);
         if (loginRes.status !== 200) {
             console.error('Login failed: ' + loginRes.status);
             sleep(1);
