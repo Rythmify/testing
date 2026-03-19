@@ -1,0 +1,23 @@
+{
+  "validUser": {
+    "email": "sohaila@rythmify.com",
+    "password": "sohaila123"
+  },
+  "newUser": {
+    "email": "newuser@rythmify.com",
+    "password": "NewUser1234",
+    "username": "newuser",
+    "month": "March",
+    "day": "3",
+    "year": "2000",
+    "gender": "Female"
+  },
+  "existingUser": {
+    "email": "sohaila@rythmify.com",
+    "password": "sohaila123"
+  },
+  "invalidUser": {
+    "email": "notregistered@rythmify.com",
+    "password": "wrongpassword"
+  }
+}
