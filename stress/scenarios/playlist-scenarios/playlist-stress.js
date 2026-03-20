@@ -49,25 +49,25 @@ export default function () {
     console.log('login body: ' + loginResponse.body);
 
     const playListId = playListIds[__VU % playListIds.length]
-const response = http.get(
-    `${BASE_URL}/playlists/${playlistId}`,
-    {
-        headers: {
-            'Authorization': `Bearer ${tokens[__VU]}`,
-        },
-        }
-    );
-    console.log('playlist status: ' + response.status);
-    console.log('playlist body: ' + response.body);
-    check(response, {
-        'status is 200':       (r) => r.status === 200,
-        'has data':            (r) => {
-        try { return JSON.parse(r.body).data !== undefined; }
-        catch(e) { return false; }
-        },
-        'no 500 server error': (r) => r.status !== 500,
-        'no 404 not found':    (r) => r.status !== 404,
-    });
+    const response = http.get(
+        `${BASE_URL}/playlists/${playlistId}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${tokens[__VU]}`,
+            },
+            }
+        );
+        console.log('playlist status: ' + response.status);
+        console.log('playlist body: ' + response.body);
+        check(response, {
+            'status is 200':       (r) => r.status === 200,
+            'has data':            (r) => {
+            try { return JSON.parse(r.body).data !== undefined; }
+            catch(e) { return false; }
+            },
+            'no 500 server error': (r) => r.status !== 500,
+            'no 404 not found':    (r) => r.status !== 404,
+        });
 
-    sleep(1);
+        sleep(1);
 }
