@@ -24,6 +24,11 @@ export const SignUpSelectors = {
     emailInput: '[data-test="input-email"]',
     continueEmailButton: '[data-test="btn-continue-email"]',
     passwordInput: '[data-test="input-password"]',
-    //createAccountButton: '' //TODO wait until the FE team add the date-test attribute for the create account button
-
+    createAccountButton: '[data-test="btn-create-account"]',
+    continueButton: '[data-test="btn-continue"]',
+    displayNameInput: '[data-test="input-display-name"]',
+    selectDateOfBirthMonthButton: '[data-test="select-dob-month"]',
+    selectDateOfBirthDayButton: '[data-test="select-dob-day"]',
+    selectDateOfBirthYearButton: '[data-test="select-dob-year"]',
+    selectGenderButton: '[data-test="select-gender"]',
 }
