@@ -1,4 +1,4 @@
-// ! Backend API not fully implemented, so this test is expected to fail until the feed endpoint is ready.
+// ! Backend API not fully implemented, so this test is expected to fail until the trending endpoint is ready.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 const BASE_URL = 'http://localhost:8080/api/v1'; 
@@ -14,4 +14,17 @@ export const options = {
         http_req_duration: ['p(95)<500'], 
         http_req_failed: ['rate<0.01'],
     },
+};
+
+export default function () {
+    const response = http.get(`${BASE_URL}/trending`);
+
+    console.log('trending status: ' + response.status);
+    console.log('trending body: ' + response.body);
+
+    check(response, {
+        'status is 200':       (r) => r.status === 200,
+        'has data':            (r) => JSON.parse(r.body).data !== undefined,
+        'no 500 server error': (r) => r.status !== 500,
+    });
 };
