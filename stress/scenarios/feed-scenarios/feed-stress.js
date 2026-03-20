@@ -15,3 +15,43 @@ export const options = {
         http_req_failed: ['rate<0.01'],
     },
 };
+
+const tokens = {};
+
+export default function () {
+
+    if (!tokens[__VU]) {
+        const response = http.post(
+        `${BASE_URL}/auth/login`,
+        JSON.stringify({
+            identifier: 'listener4@example.com', password: 'Listener1234!'
+        }),
+        { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.status !== 200) {
+        console.error('Login failed: ' + response.status);
+        sleep(1);
+        return;
+        }
+
+        tokens[__VU] = JSON.parse(response.body).data.access_token;
+    }
+
+    console.log('login status: ' + response.status);
+    console.log('login body: ' + response.body);
+
+    const response = http.get(`${BASE_URL}/feed`, {
+        headers: {
+        'Authorization': `Bearer ${tokens[__VU]}`,
+        },
+    });
+
+    check(response, {
+        'status is 200':       (r) => r.status === 200,
+        'has data':            (r) => JSON.parse(r.body).data !== undefined,
+        'no 500 server error': (r) => r.status !== 500,
+    });
+
+    sleep(1);
+}
