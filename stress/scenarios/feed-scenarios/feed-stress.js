@@ -1,9 +1,7 @@
-// ! Backend API not fully implemented, so this test is expected to fail until the notifications endpoint is ready.
+// ! Backend API not fully implemented, so this test is expected to fail until the feed endpoint is ready.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-
-export const BASE_URL = 'http://localhost:8080/api/v1'; 
-
+const BASE_URL = 'http://localhost:8080/api/v1'; 
 
 export const options = {
     stages: [
@@ -23,26 +21,27 @@ const tokens = {};
 export default function () {
 
     if (!tokens[__VU]) {
-        const loginResponse = http.post(
+        const response = http.post(
         `${BASE_URL}/auth/login`,
         JSON.stringify({
-            identifier: 'listener4@example.com',
-            password: 'Listener1234!',
+            identifier: 'listener4@example.com', password: 'Listener1234!'
         }),
         { headers: { 'Content-Type': 'application/json' } }
         );
 
-        if (loginResponse.status !== 200) {
-        console.error('Login failed: ' + loginResponse.status);
+        if (response.status !== 200) {
+        console.error('Login failed: ' + response.status);
         sleep(1);
         return;
         }
 
-        tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
+        tokens[__VU] = JSON.parse(response.body).data.access_token;
     }
-    console.log('login status: ' + loginResponse.status);
-    console.log('login body: ' + loginResponse.body);
-    const response = http.get(`${BASE_URL}/notifications`, {
+
+    console.log('login status: ' + response.status);
+    console.log('login body: ' + response.body);
+
+    const response = http.get(`${BASE_URL}/feed`, {
         headers: {
         'Authorization': `Bearer ${tokens[__VU]}`,
         },
@@ -50,10 +49,7 @@ export default function () {
 
     check(response, {
         'status is 200':       (r) => r.status === 200,
-        'has data':            (r) => {
-        try { return JSON.parse(r.body).data !== undefined; }
-        catch(e) { return false; }
-        },
+        'has data':            (r) => JSON.parse(r.body).data !== undefined,
         'no 500 server error': (r) => r.status !== 500,
     });
 

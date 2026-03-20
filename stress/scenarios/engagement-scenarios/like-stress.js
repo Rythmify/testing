@@ -1,10 +1,10 @@
-// ! Backend API not fully implemented, so this test is expected to fail until the notifications endpoint is ready.
+// ! Backend API not fully implemented, so this test is expected to fail until the like endpoint is ready.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-
-export const BASE_URL = 'http://localhost:8080/api/v1'; 
-
-
+import http from 'k6/http';
+import { BASE_URL } from '../notifications-scenarios/notifications-stress';
+const BASE_URL = 'http://localhost:8080/api/v1'; 
+const trackId = ['d1000000-0000-0000-0000-000000000002']; //TODO : replace with actual track ID from the global database
 export const options = {
     stages: [
         { duration: '1m', target: 50}, // ramp up to 50 users over 1 minute
@@ -17,7 +17,6 @@ export const options = {
         http_req_failed: ['rate<0.01'],
     },
 };
-
 const tokens = {};
 
 export default function () {
@@ -42,19 +41,32 @@ export default function () {
     }
     console.log('login status: ' + loginResponse.status);
     console.log('login body: ' + loginResponse.body);
-    const response = http.get(`${BASE_URL}/notifications`, {
+
+    const likeResponse = http.post(`${BASE_URL}/tracks/${trackId}/like`, null, {
         headers: {
         'Authorization': `Bearer ${tokens[__VU]}`,
+        'Content-Type': 'application/json',
         },
     });
+    console.log('like status: ' + likeResponse.status);
+    console.log('like body: ' + likeResponse.body);
 
-    check(response, {
-        'status is 200':       (r) => r.status === 200,
-        'has data':            (r) => {
-        try { return JSON.parse(r.body).data !== undefined; }
-        catch(e) { return false; }
+    http.del(
+        `${BASE_URL}/tracks/${trackId}/like`,
+        null,
+        {
+        headers: {
+            'Authorization': `Bearer ${tokens[__VU]}`,
+            'Content-Type': 'application/json',
         },
+        }
+    );
+
+    check(likeResponse, {
+        'status is 200':       (r) => r.status === 200,
+        'status is 201':       (r) => r.status === 201,
         'no 500 server error': (r) => r.status !== 500,
+        'no 409 conflict':     (r) => r.status !== 409,
     });
 
     sleep(1);
