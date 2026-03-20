@@ -5,7 +5,7 @@ export const LoginSelectors = {
     appleButton: '[data-test="btn-continue-apple"]',
     emailInput: '[data-test="input-email"]',
     continueEmailButton: '[data-test="btn-continue-email"]',
-    continueButton : '[data-test="input-email"]',
+    continueButton : '[data-test="btn-continue"]',
     passwordInput: '[data-test="input-password"]',
     buttonTogglePassword: '[data-test="btn-toggle-password"]',
 } 
