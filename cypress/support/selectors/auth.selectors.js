@@ -21,6 +21,7 @@ export const ResetPasswordSelectors = {
 }
 // selectors for sign up page
 export const SignUpSelectors = {
+    buttonTogglePassword: '[data-test="btn-toggle-password"]',
     emailInput: '[data-test="input-email"]',
     continueEmailButton: '[data-test="btn-continue-email"]',
     passwordInput: '[data-test="input-password"]',
