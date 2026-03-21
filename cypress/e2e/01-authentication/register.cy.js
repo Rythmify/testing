@@ -2,6 +2,7 @@ import {SignUpSelectors} from '../../support/selectors/auth.selectors'
 describe('Register Page', () => {
     beforeEach(() => {
         cy.visit('/signin');
+        cy.get(SignUpSelectors.emailInput).click();
         cy.get(SignUpSelectors.emailInput).type('listener12@example.com');
         cy.get(SignUpSelectors.continueButton).click();
         cy.get(SignUpSelectors.createAccountButton).click();
