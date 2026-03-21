@@ -22,8 +22,9 @@ module.exports = {
   UPGRADE_TAB:        '~Upgrade\nTab 5 of 5',
   
   // ─── Error Messages ───
-  ERROR_INVALID_CREDENTIALS: '~invalid email or password',  
+  ERROR_INVALID_CREDENTIALS: '~Invalid email or password.',  
   ERROR_EMPTY_EMAIL:         '~Please enter your email',    
   ERROR_EMPTY_PASSWORD:      '~Please enter your password',
+  ERROR_INVALID_EMAIL:       '~Please enter a valid email',
 
 };

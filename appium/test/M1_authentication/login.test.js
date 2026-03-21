@@ -14,30 +14,41 @@ describe('M1 - Authentication: Login', () => {
 
   });
 
-  // ─── Invalid Credentials ───
 
-  //1. invalid email or password
-  it('should show error error with wrong password', async () => {
+
+  // ─── Invalid Credentials ───
+  //1. Invalid password
+  it('should show error message with invalid password', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();
     await LoginPage.login('sohaila@rythmify.com', 'wrongpass1234');
     const isErrorVisible = await LoginPage.isInvalidCredentialsErrorVisible();
     expect(isErrorVisible).toBe(true);
-    const ErrorMessage = await LoginPage.getInvalidCredentialsErrorMessage();
-    expect(ErrorMessage).toBe('Invalid email or password.');
   });
 
-  it('should show error with wrong email', async () => {
+  //2.Unregistered email
+  it('should show error with invalid email', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();
-    await LoginPage.login('wrongemail@rythmify.com', 'sohaila123');
+    await LoginPage.login('unregistered@rythmify.com', 'sohaila123');
     const isErrorVisible = await LoginPage.isInvalidCredentialsErrorVisible();
     expect(isErrorVisible).toBe(true);
-    const ErrorMessage = await LoginPage.getInvalidCredentialsErrorMessage();
-    expect(ErrorMessage).toBe('Invalid email or password.');
   });
 
-  //2. empty email or password
+  //3. Invalid email format
+  it('should show error with invalid email format', async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapLogin();
+    await LoginPage.fillEmail('invalid-email-format');
+    await LoginPage.tapContinue();
+    const isErrorVisible = await LoginPage.isInvalidEmailErrorVisible();
+    expect(isErrorVisible).toBe(true);
+  });
+
+
+
+  // ─── Empty Fields ───
+  //1. empty email
   it('should show error with empty email', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();
@@ -47,6 +58,7 @@ describe('M1 - Authentication: Login', () => {
     expect(isErrorVisible).toBe(true);
   });
 
+  //2. empty password
   it('should show error with empty password', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapLogin();

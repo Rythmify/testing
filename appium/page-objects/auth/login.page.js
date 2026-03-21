@@ -58,11 +58,6 @@ class LoginPage extends BasePage {
     return this.isVisible(LoginSelectors.ERROR_INVALID_CREDENTIALS);
   }
 
-  async getInvalidCredentialsErrorMessage() {
-    return this.getText(LoginSelectors.ERROR_INVALID_CREDENTIALS);
-  }
-
-
   async isEmptyEmailErrorVisible() {
     return this.isVisible(LoginSelectors.ERROR_EMPTY_EMAIL);
   }
@@ -71,6 +66,9 @@ class LoginPage extends BasePage {
     return this.isVisible(LoginSelectors.ERROR_EMPTY_PASSWORD);
   }
 
+  async isInvalidEmailErrorVisible() {
+    return this.isVisible(LoginSelectors.ERROR_INVALID_EMAIL);
+  }
 }
 
 module.exports = new LoginPage();
