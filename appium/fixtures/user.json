@@ -3,19 +3,37 @@
     "email": "sohaila@rythmify.com",
     "password": "sohaila123"
   },
+
   "newUser": {
     "email": "newuser@rythmify.com",
     "password": "NewUser1234",
     "username": "newuser",
     "month": "March",
     "day": "3",
-    "year": "2000",
+    "year": "2013",
     "gender": "Female"
   },
+
   "existingUser": {
     "email": "sohaila@rythmify.com",
-    "password": "sohaila123"
+    "password": "Sohaila123",
+    "username": "sohaila",
+    "month": "March",
+    "day": "5",
+    "year": "2013",
+    "gender": "Female"
   },
+
+  "ageRestrictedUser": {
+    "email": "invalidage@rythmify.com",
+    "password": "InvalidAge123",
+    "username": "invalidage",
+    "month": "March",
+    "day": "3",
+    "year": "2020",
+    "gender": "Male"
+  },
+
   "invalidUser": {
     "email": "notregistered@rythmify.com",
     "password": "wrongpassword"

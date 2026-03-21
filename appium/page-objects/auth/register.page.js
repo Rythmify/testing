@@ -87,6 +87,18 @@ class RegisterPage extends BasePage {
     return this.isVisible(RegisterSelectors.ALREADY_EXISTS_ERROR);
   }
 
+  async isUsernameEmptyErrorVisible() {
+    return this.isVisible(RegisterSelectors.EMPTY_USERNAME_ERROR);
+  }
+
+  async isGenderEmptyErrorVisible() {
+    return this.isVisible(RegisterSelectors.EMPTY_GENDER_ERROR);
+  }
+
+  async isDateOfBirthEmptyErrorVisible() {
+    return this.isVisible(RegisterSelectors.EMPTY_DATE_OF_BIRTH_ERROR);
+  }
+
 }
 
 module.exports = new RegisterPage();

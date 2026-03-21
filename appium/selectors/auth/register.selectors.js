@@ -2,12 +2,12 @@
 module.exports = {
 
   // ─── Email Screen ───
-  EMAIL_INPUT:      'android=new UiSelector().hint("Your email address or profile URL")',
+  EMAIL_INPUT:      'android=new UiSelector().className("android.widget.EditText").instance(0)',
   CONTINUE_BUTTON:  '~Continue',
 
   // ─── Password Screen ───
-  PASSWORD_INPUT:   'android=new UiSelector().hint("Your password")',
-  PASSWORD_CONTINUE_BUTTON: 'android=new UiSelector().className("android.view.View").instance(5)',
+  PASSWORD_INPUT:   'android=new UiSelector().className("android.widget.EditText").instance(0)',
+  PASSWORD_CONTINUE_BUTTON: '~Continue',
 
   // ─── Profile Screen ───
   USERNAME_INPUT:   'android=new UiSelector().className("android.widget.EditText")',
@@ -24,7 +24,12 @@ module.exports = {
   FINAL_CONTINUE:   '~Continue',
 
   // ─── Error Messages ───
-  ALREADY_EXISTS_ERROR:    '~An account with this email already exists.',         
+  ALREADY_EXISTS_ERROR:    '~An account with this email already exists.',     
+  INVALID_EMAIL_ERROR:     '~Please enter a valid email', 
+  EMPTY_USERNAME_ERROR:      '~Please enter a display name',
+  EMPTY_GENDER_ERROR:       '~Please select your gender',
+  EMPTY_DATE_OF_BIRTH_ERROR: '~Please select your date of birth',
+  AGE_RESTRICTION_ERROR:    '~You must be at least 13 years old to register',   
 
   // ─── After Register ───
   HOME_PAGE: 'android=new UiSelector().description("Home\nTab 1 of 5")',
