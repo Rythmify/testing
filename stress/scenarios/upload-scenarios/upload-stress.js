@@ -70,7 +70,7 @@ export default function () {
 
     check(response, {
         'status is 201':       (r) => r.status === 201,
-        'track was created':   (r) => JSON.parse(r.body).data?.track_id !== undefined,
+        'track was created':   (r) => JSON.parse(r.body).data?.id !== undefined,
         'no 500 server error': (r) => r.status !== 500,
         'no 403 forbidden':    (r) => r.status !== 403,
     });
