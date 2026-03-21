@@ -1,4 +1,3 @@
-// ! Backend API not fully implemented, so this test is expected to fail until the messages endpoint is ready.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 export const BASE_URL = 'http://localhost:8080/api/v1'; 
@@ -43,7 +42,7 @@ export default function () {
         `${BASE_URL}/messages/new`,
         JSON.stringify({
             recipient_id: 'c2000000-0000-0000-0000-000000000003', //TODO replace with real user ID
-            message: 'Stress test message',
+            body: 'Stress test message',
         }),
         {
             headers: {
@@ -61,12 +60,12 @@ export default function () {
         return;
         }
 
-        conversationId [__VU] = JSON.parse(conversationResponse.body).data?.conversation_id;
+        conversationId[__VU] = JSON.parse(conversationResponse.body).data?.message?.conversation_id;
     }
     const response = http.post(
         `${BASE_URL}/messages/conversations/${conversationId [__VU]}/messages`,
         JSON.stringify({
-        content: `Stress test message ${__VU}_${__ITER}`,
+        body: `Stress test message ${__VU}_${__ITER}`,
         }),
         {
         headers: {
@@ -75,10 +74,15 @@ export default function () {
         },
         }
     );
+    console.log('message status: ' + response.status);
+    console.log('message body: ' + response.body);
     check(response, {
-        'status is 200':       (r) => r.status === 200,
-        'status is 201':       (r) => r.status === 201,
-        'no 500 server error': (r) => r.status !== 500,
+        'status is 200 or 201': (r) => r.status === 200 || r.status === 201,
+        'no 500 server error':  (r) => r.status !== 500,
+        'message sent':         (r) => {
+            try { return JSON.parse(r.body).data?.id !== undefined; }
+            catch(e) { return false; }
+        },
     });
 
     sleep(1);
