@@ -1,3 +1,5 @@
+const { ERROR_EMPTY_EMAIL, ERROR_EMPTY_PASSWORD } = require("./login.selectors");
+
 // appium/selectors/auth/register.selectors.js
 module.exports = {
 
@@ -30,6 +32,8 @@ module.exports = {
   ERROR_PASSWORD_NO_UPPERCASE: '~Password must contain an uppercase letter',
   ERROR_PASSWORD_NO_LOWERCASE: '~Password must contain a lowercase letter',
   ERROR_PASSWORD_NO_NUMBER:    '~Password must contain a number',
+  ERROR_EMPTY_EMAIL:           '~Please enter your email',
+  ERROR_EMPTY_PASSWORD:        '~Please enter a password',
   EMPTY_USERNAME_ERROR:      '~Please enter a display name',
   EMPTY_GENDER_ERROR:       '~Please select your gender',
   EMPTY_DATE_OF_BIRTH_ERROR: '~Please select your date of birth',

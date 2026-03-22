@@ -1,5 +1,6 @@
 const BasePage = require('../base.page');
 const { RegisterSelectors } = require('../../selectors');
+const { isEmptyEmailErrorVisible } = require('./login.page');
 
 class RegisterPage extends BasePage {
 
@@ -131,6 +132,14 @@ async scrollToYear(year) {
     return this.isVisible(RegisterSelectors.ALREADY_EXISTS_ERROR);
   }
 
+  async isEmptyEmailErrorVisible() {
+    return this.isVisible(RegisterSelectors.ERROR_EMPTY_EMAIL);
+  }
+
+  async isEmptyPasswordErrorVisible() {
+    return this.isVisible(RegisterSelectors.ERROR_EMPTY_PASSWORD);
+  }
+  
   async isUsernameEmptyErrorVisible() {
     return this.isVisible(RegisterSelectors.EMPTY_USERNAME_ERROR);
   }
