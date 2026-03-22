@@ -1,6 +1,7 @@
 const WelcomePage  = require('../../page-objects/auth/welcome.page');
 const RegisterPage = require('../../page-objects/auth/register.page');
 const { invalidPasswords } = require('../../fixtures/user.json');
+const { scrollValues } = require('../../fixtures/user.json');
 const { RegisterSelectors } = require('../../selectors');
 const users        = require('../../fixtures/user.json');
 
@@ -20,6 +21,29 @@ describe('M1 - Authentication: Sign Up', () => {
       users.newUser.year,
       users.newUser.gender
     );
+    const isHome = await RegisterPage.isHomePageVisible();
+    expect(isHome).toBe(true);
+  });
+
+  it('should scroll and select the right values and register successfully', async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.fillEmail(users.newUser.email);
+    await RegisterPage.tapContinue();
+    await RegisterPage.fillPassword(users.newUser.password);
+    await RegisterPage.tapPasswordContinue();
+    await RegisterPage.fillUsername(users.newUser.username);
+    await RegisterPage.selectMonth(users.newUser.month);
+    await RegisterPage.openDayDropdown();
+    await RegisterPage.scrollToDay(scrollValues.days);
+    const isCorrectDay = await $(`~${scrollValues.days}`).isDisplayed();
+    expect(isCorrectDay).toBe(true);
+    await RegisterPage.openYearDropdown();
+    await RegisterPage.scrollToYear(scrollValues.years);
+    const isCorrectYear = await $(`~${scrollValues.years}`).isDisplayed();
+    expect(isCorrectYear).toBe(true);
+    await RegisterPage.selectGender(users.newUser.gender);
+    await RegisterPage.tapFinalContinue();
     const isHome = await RegisterPage.isHomePageVisible();
     expect(isHome).toBe(true);
   });
@@ -177,6 +201,4 @@ invalidPasswords.forEach(({ password, reason, error }) => {
     expect(isError).toBe(true);
   });
 
-  
-  
 });

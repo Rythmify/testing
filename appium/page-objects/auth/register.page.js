@@ -40,17 +40,17 @@ class RegisterPage extends BasePage {
   }
 
   async selectMonth(month) {
-    await this.tap(RegisterSelectors.MONTH_PICKER);
+    await this.openMonthDropdown();
     await this.tap(`~${month}`);
   }
 
   async selectDay(day) {
-    await this.tap(RegisterSelectors.DAY_PICKER);
+    await this.openDayDropdown();
     await this.tap(`~${day}`);
   }
 
   async selectYear(year) {
-    await this.tap(RegisterSelectors.YEAR_PICKER);
+    await this.openYearDropdown();
     await this.tap(`~${year}`);
   }
 
@@ -58,6 +58,42 @@ class RegisterPage extends BasePage {
     await this.tap(RegisterSelectors.GENDER_PICKER);
     await this.tap(`~${gender}`);
   }
+
+  async openMonthDropdown() {
+    await this.tap(RegisterSelectors.MONTH_PICKER);
+  }
+
+  async openDayDropdown() {
+    await this.tap(RegisterSelectors.DAY_PICKER);
+  }
+
+  async openYearDropdown() {
+    await this.tap(RegisterSelectors.YEAR_PICKER);
+  }
+
+  async scrollToDay(day) {
+  const el = await $(
+    `android=new UiScrollable(new UiSelector().scrollable(true))` +
+    `.scrollIntoView(new UiSelector().description("${day}"))`
+  );
+  await el.click();
+}
+
+async scrollToMonth(month) {
+  const el = await $(
+    `android=new UiScrollable(new UiSelector().scrollable(true))` +
+    `.scrollIntoView(new UiSelector().description("${month}"))`
+  );
+  await el.click();
+}
+
+async scrollToYear(year) {
+  const el = await $(
+    `android=new UiScrollable(new UiSelector().scrollable(true))` +
+    `.scrollIntoView(new UiSelector().description("${year}"))`
+  );
+  await el.click();
+}
 
   async tapFinalContinue() {
     await this.tap(RegisterSelectors.FINAL_CONTINUE);
