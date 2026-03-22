@@ -8,7 +8,7 @@ module.exports = {
   'appium:app': path.resolve(__dirname, '../app/rythmify.apk'),
   'appium:appPackage': 'com.example.rythmify',
   'appium:appActivity': 'com.example.rythmify.MainActivity',
-  'appium:noReset': false,
+  'appium:noReset': true,
   'appium:fullReset': false,
   'appium:newCommandTimeout': 120,
   'appium:autoGrantPermissions': true,

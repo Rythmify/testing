@@ -26,6 +26,10 @@ module.exports = {
   // ─── Error Messages ───
   ALREADY_EXISTS_ERROR:    '~An account with this email already exists.',     
   INVALID_EMAIL_ERROR:     '~Please enter a valid email', 
+  ERROR_PASSWORD_TOO_SHORT:      '~Password must be at least 8 characters',
+  ERROR_PASSWORD_NO_UPPERCASE: '~Password must contain an uppercase letter',
+  ERROR_PASSWORD_NO_LOWERCASE: '~Password must contain a lowercase letter',
+  ERROR_PASSWORD_NO_NUMBER:    '~Password must contain a number',
   EMPTY_USERNAME_ERROR:      '~Please enter a display name',
   EMPTY_GENDER_ERROR:       '~Please select your gender',
   EMPTY_DATE_OF_BIRTH_ERROR: '~Please select your date of birth',

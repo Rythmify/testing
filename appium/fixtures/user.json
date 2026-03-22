@@ -34,8 +34,10 @@
     "gender": "Male"
   },
 
-  "invalidUser": {
-    "email": "notregistered@rythmify.com",
-    "password": "wrongpassword"
-  }
+"invalidPasswords": [
+  { "password": "Ab1",           "reason": "too short",    "error": "ERROR_PASSWORD_TOO_SHORT"    },
+  { "password": "alllowercase1", "reason": "no uppercase", "error": "ERROR_PASSWORD_NO_UPPERCASE" },
+  { "password": "ALLUPPERCASE1", "reason": "no lowercase", "error": "ERROR_PASSWORD_NO_LOWERCASE" },
+  { "password": "NoNumberHere",  "reason": "no number",    "error": "ERROR_PASSWORD_NO_NUMBER"    }
+]
 }

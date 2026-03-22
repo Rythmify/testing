@@ -1,5 +1,7 @@
 const WelcomePage  = require('../../page-objects/auth/welcome.page');
 const RegisterPage = require('../../page-objects/auth/register.page');
+const { invalidPasswords } = require('../../fixtures/user.json');
+const { RegisterSelectors } = require('../../selectors');
 const users        = require('../../fixtures/user.json');
 
 describe('M1 - Authentication: Sign Up', () => {
@@ -53,7 +55,22 @@ describe('M1 - Authentication: Sign Up', () => {
     expect(isError).toBe(true);
   });
 
-  // Empty Fields Validation:
+  // ─── Invalid Password Format ───
+invalidPasswords.forEach(({ password, reason, error }) => {
+  it(`should show error when registering with invalid password: ${reason}`, async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.fillEmail(users.newUser.email);
+    await RegisterPage.tapContinue();
+    await RegisterPage.fillPassword(password);           
+    await RegisterPage.tapPasswordContinue();
+    await driver.pause(2000);
+    const isError = await RegisterPage.isSpecificPasswordErrorVisible(RegisterSelectors[error]); 
+    expect(isError).toBe(true);
+  });
+});
+
+  // ─── Empty Fields Validation ───
   //1. Empty username
   it('should show error when registering with empty username', async () => {
     await WelcomePage.waitForWelcomeScreen();
@@ -73,7 +90,7 @@ describe('M1 - Authentication: Sign Up', () => {
     expect(isError).toBe(true);
   });
 
-  //3. Empty Date of Birth (month/day/year)
+  //2. Empty Date of Birth (month/day/year)
   //--month--
     it('should show error when registering with empty Date of Birth', async () => {
     await WelcomePage.waitForWelcomeScreen();
@@ -124,7 +141,7 @@ describe('M1 - Authentication: Sign Up', () => {
   });
 
 
-  //2. Empty Gender
+  //3. Empty Gender
     it('should show error when registering with empty Gender', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapRegister();
@@ -141,7 +158,7 @@ describe('M1 - Authentication: Sign Up', () => {
     expect(isError).toBe(true);
   });
 
-  //───── Valid Age Restriction ─────
+  //───  Valid Age Restriction ─── 
   it('should show error when registering with age below 13', async () => {
     await WelcomePage.waitForWelcomeScreen();
     await WelcomePage.tapRegister();

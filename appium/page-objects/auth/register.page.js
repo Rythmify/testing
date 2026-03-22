@@ -83,6 +83,14 @@ class RegisterPage extends BasePage {
     return this.isVisible(RegisterSelectors.HOME_PAGE);
   }
 
+  async isInvalidEmailErrorVisible() {
+    return this.isVisible(RegisterSelectors.INVALID_EMAIL_ERROR);
+  }
+
+  async isSpecificPasswordErrorVisible(errorSelector) {
+    return this.isVisible(errorSelector);
+  }
+
   async isAlreadyExistsErrorVisible() {
     return this.isVisible(RegisterSelectors.ALREADY_EXISTS_ERROR);
   }
