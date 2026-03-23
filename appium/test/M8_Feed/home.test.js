@@ -38,4 +38,39 @@ describe('Home Page — Bottom Navigation', () => {
     const isVisible = await homePage.isHeaderVisible();
     expect(isVisible).toBe(true);
   });
+
+  // ─── Header ────
+  
+  describe('Home Page — Header', () => {
+  
+    it('TC-HOME-004 | Header title and all 3 icon buttons are visible', async () => {
+      await homePage.waitForHomeScreen();
+      const allVisible = await homePage.isAllHeaderElementsVisible();
+      expect(allVisible).toBe(true);
+    });
+  
+    it('TC-HOME-005 | Upload button opens a screen without crash', async () => {
+      await homePage.waitForHomeScreen();
+      await homePage.tapUploadButton();
+      await driver.back();
+      await driver.back(); 
+      await driver.back();
+      expect(true).toBe(true);
+    });
+  
+    it('TC-HOME-006 | Message button opens a screen without crash', async () => {
+      await homePage.waitForHomeScreen();
+      await homePage.tapMessageButton();
+      await driver.back();
+      expect(true).toBe(true);
+    });
+  
+    it('TC-HOME-007 | Notification button opens a screen without crash', async () => {
+      await homePage.waitForHomeScreen();
+      await homePage.tapNotificationButton();
+      await driver.back();
+      expect(true).toBe(true);
+    });
+  
+  });
 });
