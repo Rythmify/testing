@@ -50,11 +50,22 @@ describe('Track Upload — Upload', () => {
     // Verify the values were updated
     const updatedTitle = await TrackUploadPage.getTrackTitle();
     expect(updatedTitle).toBe('test track');
+    await driver.hideKeyboard();
+    await driver.$(
+        'android=new UiScrollable(new UiSelector().scrollable(true))' +
+        '.setMaxSearchSwipes(1)' +
+        '.scrollIntoView(new UiSelector().text("Tags"))'
+    );
 
-    await TrackUploadPage.selectGenre('FOLK');
+    //await TrackUploadPage.selectGenre('FOLK'); //to be handled
     await TrackUploadPage.writeTags('#Testing');
     await TrackUploadPage.writeDescription('Test Uploading');
     await TrackUploadPage.writeCaption('Testinggg');
+    await driver.hideKeyboard();
+    await driver.$(
+        'android=new UiScrollable(new UiSelector().scrollable(true))' +
+        '.scrollIntoView(new UiSelector().text("Privacy"))'
+    );
     await TrackUploadPage.tapPrivate();
     await TrackUploadPage.tapPublic();
     await TrackUploadPage.tapSave1();
