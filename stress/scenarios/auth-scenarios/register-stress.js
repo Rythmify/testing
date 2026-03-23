@@ -15,7 +15,7 @@ export const options = {
 };
 
 export default function () {
-    const uniqueEmail = `testuser_${__VU}_${__ITER}@rythmify.com`;
+    const uniqueEmail = `testuser_${__VU}_${__ITER}@rythmife.com`;
 
     const payLoad = JSON.stringify({
         email: uniqueEmail,

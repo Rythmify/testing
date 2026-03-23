@@ -5,10 +5,9 @@ const BASE_URL = 'http://localhost:8080/api/v1';
 
 export const options = {
     stages: [
-        { duration: '1m', target: 50  },
-        { duration: '3m', target: 100 },
-        { duration: '1m', target: 150 },
-        { duration: '2m', target: 0   },
+        { duration: '2m',  target: 30 },
+        { duration: '10m', target: 30 },
+        { duration: '2m',  target: 0  },
     ],
     thresholds: {
         http_req_duration: ['p(95)<500'],
@@ -33,7 +32,6 @@ function extractRefreshToken(setCookieHeader) {
 
 export default function () {
 
-  // login only once per VU
     if (!tokens[__VU]) {
         const user = USERS[__VU % USERS.length];
 
@@ -60,7 +58,6 @@ export default function () {
         tokens[__VU] = token;
     }
 
-    // call refresh every iteration using stored token
     const response = http.post(
         `${BASE_URL}/auth/refresh`,
         null,
@@ -72,7 +69,6 @@ export default function () {
         }
     );
 
-    // update token after rotation
     const newToken = extractRefreshToken(response.headers['Set-Cookie']);
     if (newToken) tokens[__VU] = newToken;
 
