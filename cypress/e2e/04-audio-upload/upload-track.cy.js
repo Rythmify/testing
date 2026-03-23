@@ -3,6 +3,7 @@ import { AudioUploadSelectors } from "../../support/selectors/audio-upload.selec
 describe ('Audio Upload', () => {
 
     beforeEach(() => {
+        cy.viewport('macbook-13');
         cy.visit('/signin');
         cy.get(LoginSelectors.emailInput).click();
         cy.get(LoginSelectors.emailInput).type('listener4@example.com');
@@ -10,7 +11,7 @@ describe ('Audio Upload', () => {
         cy.get(LoginSelectors.passwordInput).type('Listener1234!');
         cy.get(LoginSelectors.continueButton).click();
         cy.location("pathname").should("equal","/discover");
-        cy.visit('/upload');
+        cy.get(AudioUploadSelectors.uploadLink).click();
     })
     // happy path test case for audio upload page
     it ('Should go to upload page and display the upload form', () => {
