@@ -14,7 +14,7 @@ exports.beforeTest = async function (test) {
   console.log(`\n▶ Running: ${test.title}`);
 
   // Reset app to clean state
-  await driver.reset();
+  //await driver.reset();
 };
 
 // ─────────────────────────────────────────────
