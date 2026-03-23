@@ -1,4 +1,4 @@
-const PlayerPage = require('../../page-objects/Track&Player/Player.page');
+const TrackPage = require('../../page-objects/Track&Player/Track.page');
 const homePage        = require('../../page-objects/Feed/home.page');
 const loginPage       = require('../../page-objects/auth/login.page');
 const welcomePage     = require('../../page-objects/auth/welcome.page');
@@ -18,29 +18,35 @@ before(async () => {
 });
 
 
-describe('PLAYER - TestCases', () => {
+describe('Track - TestCases', () => {
 
   //need selectors to work  
-  it('TC-PLAYER-001 | Play the Trck Successfully & make sure evrything is Visible', async () => {
+  it('TC-TRACK- 001 | track name & artist name is Visible & correct', async () => {
     await homePage.waitForHomeScreen();
-    await PlayerPage.tapPlayerInfo();
-    const isTabsVisible = await PlayerPage.isAllTabsVisible();
+    const isTrackInfoVisible = await TrackPage.isTrackInfoVisible();
+    expect(isTrackInfoVisible).toBe(true);
+   });
+
+   it('TC-TRACK-002 | All UI is visible', async () => {
+    await homePage.waitForHomeScreen();
+    const isTabsVisible = await TrackPage.isAllTabsVisible();
     expect(isTabsVisible).toBe(true);
-    await PlayerPage.tapMoveDownIcon();
-    const isMiniPlayerVisible = await PlayerPage.isMiniPlayerVisible();
-    expect(isMiniPlayerVisible).toBe(true);
-    await PlayerPage.tapPlayButton();
    });
 
-   it('TC-PLAYER-002 | Change the volume Sound with no crash', async () => {
+   it('TC-TRACK-003 | Tags are visible & tappable & scrollable', async () => {
     await homePage.waitForHomeScreen();
+    await TrackPage.isTagsVisible();
    });
 
-   it('TC-PLAYER-003 | Change the track place with no crash', async () => {
+   it('TC-TRACK-004 | Show More is visible & tappable', async () => {
     await homePage.waitForHomeScreen();
+    const isVisible = await TrackPage.isShowMoreVisible();
+    expect(isVisible).toBe(true);
+    await TrackPage.tapShowMore();
+    //expect to see Description Box
    });
 
-   it('TC-PLAYER-004 | Track Plays in the background with no crash', async () => {
+   it('TC-TRACK-005 | Fans Leaderboard is visible & tappable', async () => {
     await homePage.waitForHomeScreen();
    });
 

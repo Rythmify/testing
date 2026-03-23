@@ -5,6 +5,7 @@ const RegisterSelectors = require('./auth/register.selectors');
 //TrackUpload selectros
 const TrackUploadSelectors = require('./Track-Upload/TrackUpload.selectors');
 //Track&Player selectors
+const TrackSelectors =  require('./Track&Player/Track.selectors')
 const PlayerSelectors = require('./Track&Player/Player.selectors')
 //Feed selectors
 const HomeSelectors = require('./Feed/home.selectors'); 
@@ -15,8 +16,8 @@ module.exports = {
   LoginSelectors,
   RegisterSelectors,
   TrackUploadSelectors,
+  TrackSelectors,
   PlayerSelectors,
   HomeSelectors,
  
-
 };
