@@ -1,8 +1,7 @@
 const BasePage = require('../base.page');
 const { TrackSelectors } = require('../../selectors');
-const { PLAY_BUTTON } = require('../../selectors/Track&Player/Track.selectors');
 
-class PlayerPage extends BasePage {
+class TrackPage extends BasePage {
 
     // ── Home Screen 
     async waitForHomeScreen() {
