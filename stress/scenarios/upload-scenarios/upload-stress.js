@@ -1,4 +1,3 @@
-// ! There is bug , When this bug fixed this test will pass 
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
@@ -55,7 +54,7 @@ export default function () {
             title:       `Stress Test Track ${__VU}_${__ITER}`,
             genre:       'Islamic Lecture',
             description: 'Stress test upload',
-            tags:        'stress,test',
+            tags:        JSON.stringify(['quran', 'short']),
             visibility:  'private',
         },
         {
@@ -70,7 +69,10 @@ export default function () {
 
     check(response, {
         'status is 201':       (r) => r.status === 201,
-        'track was created':   (r) => JSON.parse(r.body).data?.id !== undefined,
+        'track was created':   (r) => {
+            try { return JSON.parse(r.body).data?.id !== undefined; }
+            catch (e) { return false; }
+        },
         'no 500 server error': (r) => r.status !== 500,
         'no 403 forbidden':    (r) => r.status !== 403,
     });
