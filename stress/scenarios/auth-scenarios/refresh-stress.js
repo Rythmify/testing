@@ -33,7 +33,6 @@ function extractRefreshToken(setCookieHeader) {
 
 export default function () {
 
-  // login only once per VU
     if (!tokens[__VU]) {
         const user = USERS[__VU % USERS.length];
 
