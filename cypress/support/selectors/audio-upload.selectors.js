@@ -1,4 +1,5 @@
 export const AudioUploadSelectors = {
+    uploadLink: '[data-test="link-upload"]',
     getUnlimitedUploadsButton: '[data-test="get-unlimited-uploads-button"]',
     chooseFileInput: '[data-test="choose-files-button"]',
     recordSectionToggleButton: '[data-test="record-section-toggle-button"]',
