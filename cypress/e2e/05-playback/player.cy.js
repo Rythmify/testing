@@ -1,7 +1,8 @@
 import { PlayerSelectors } from '../../support/selectors/player.selectors';
 describe ('Player Page', () => {
     beforeEach(() => {
-        cy.visit('/amjad-samir/ma-ajhalak')
+        cy.visit('/discover');
+        cy.get(PlayerSelectors.trackCard).first().click();
         cy.wait(2000);
     })
     it ('Should display player paged',() => {

@@ -16,4 +16,5 @@ export const PlayerSelectors = {
     embedTab: '[data-test="tab-embed"]',
     copyEmbedButton: '[data-test="button-copy-embed"]',
     messageTab: '[data-test="tab-message"]',
+    trackCard: '[data-test="card-track"]',
 }
