@@ -16,10 +16,6 @@ module.exports = {
 
   // ─── Home Page ───
   HOME_PAGE:          'android=new UiSelector().description("Home\nTab 1 of 5")',
-  FEED_TAB:           '~Feed\nTab 2 of 5',
-  SEARCH_TAB:         '~Search\nTab 3 of 5',
-  LIBRARY_TAB:        '~Library\nTab 4 of 5',
-  UPGRADE_TAB:        '~Upgrade\nTab 5 of 5',
   
   // ─── Error Messages ───
   ERROR_INVALID_CREDENTIALS: '~Invalid email or password.',  

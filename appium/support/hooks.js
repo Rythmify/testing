@@ -13,13 +13,19 @@ exports.before = async function () {
 exports.beforeTest = async function (test) {
   console.log(`\n▶ Running: ${test.title}`);
 
-  // Terminate the app
-  await driver.terminateApp('com.example.rythmify');
-  await driver.pause(1000);
+    // Only restart the app for auth tests (login & register)
+  // All other modules manage their own state
+  const isAuthTest = test.file && (
+    test.file.includes('login') || 
+    test.file.includes('register')
+  );
 
-  // Relaunch the app
-  await driver.activateApp('com.example.rythmify');
-  await driver.pause(3000);
+  if (isAuthTest) {
+    await driver.terminateApp('com.example.rythmify');
+    await driver.pause(1000);
+    await driver.activateApp('com.example.rythmify');
+    await driver.pause(3000);
+  }
   // Reset app to clean state
   //await driver.reset();
 };

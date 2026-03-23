@@ -7,7 +7,7 @@ module.exports = {
   'appium:automationName': 'UiAutomator2',
   'appium:app': path.resolve(__dirname, '../app/rythmify.apk'),
   'appium:appPackage': 'com.example.rythmify',
-  'appium:appActivity': 'com.example.rythmify.MainActivity',
+  'appium:appActivity': '.MainActivity',
   'appium:noReset': true,
   'appium:fullReset': false,
   'appium:newCommandTimeout': 120,

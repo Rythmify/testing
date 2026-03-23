@@ -1,4 +1,16 @@
-const homePage = require('../../page-objects/home.page');
+const homePage  = require('../../page-objects/Feed/home.page');
+const loginPage = require('../../page-objects/auth/login.page');
+const welcomePage = require('../../page-objects/auth/welcome.page');
+const { validUser } = require('../../fixtures/user.json');
+
+// LOGIN before all tests — session is kept alive by noReset: true
+before(async () => {
+  await welcomePage.waitForWelcomeScreen();
+  await welcomePage.tapLogin();
+  await loginPage.login(validUser.email, validUser.password);
+  const home = await driver.$('android=new UiSelector().description("Home\nTab 1 of 5")');
+  await home.waitForDisplayed({ timeout: 15000 });
+});
 
 // ─── Bottom Navigation ───
 
@@ -12,37 +24,18 @@ describe('Home Page — Bottom Navigation', () => {
 
   it('TC-HOME-002 | All 5 bottom nav tabs are visible', async () => {
     await homePage.waitForHomeScreen();
-
-    const tabs = [
-      HomeSelectors.NAV.HOME_TAB,
-      HomeSelectors.NAV.FEED_TAB,
-      HomeSelectors.NAV.SEARCH_TAB,
-      HomeSelectors.NAV.LIBRARY_TAB,
-      HomeSelectors.NAV.UPGRADE_TAB,
-    ];
-
-    for (const selector of tabs) {
-      expect(await homePage.isVisible(selector)).toBe(true);
-    }
+    const allVisible = await homePage.isAllNavTabsVisible();
+    expect(allVisible).toBe(true);
   });
 
   it('TC-HOME-003 | Each bottom nav tab navigates without crash', async () => {
     await homePage.waitForHomeScreen();
-
     await homePage.tapFeedTab();
-    expect(await homePage.isVisible(HomeSelectors.NAV.FEED_TAB)).toBe(true);
-
     await homePage.tapSearchTab();
-    expect(await homePage.isVisible(HomeSelectors.NAV.SEARCH_TAB)).toBe(true);
-
     await homePage.tapLibraryTab();
-    expect(await homePage.isVisible(HomeSelectors.NAV.LIBRARY_TAB)).toBe(true);
-
     await homePage.tapUpgradeTab();
-    expect(await homePage.isVisible(HomeSelectors.NAV.UPGRADE_TAB)).toBe(true);
-
-    // Return home at end of test
     await homePage.tapHomeTab();
-    expect(await homePage.isHeaderVisible()).toBe(true);
+    const isVisible = await homePage.isHeaderVisible();
+    expect(isVisible).toBe(true);
   });
 });

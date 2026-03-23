@@ -47,11 +47,13 @@ module.exports = {
   },
 
   // ── Activity/Notification Card (format: "<Track Title>\n<Artist Name>\n<Notification message>")
+  HOT_FOR_YOU: {
    ACTIVITY_CARD: byDesc(
       "Hot For You 🔥\nNeon Nights\nSynthwave Boy\n1.5M people liked your track"
     ),
     ACTION_BTN: byClassInstance(3),
-   
+  },
+  
    // ── Sections (mock/dummy data — scroll-only testing) ──
   SECTIONS: {
     MIXED_FOR_YOU:         "~Mixed For You",
