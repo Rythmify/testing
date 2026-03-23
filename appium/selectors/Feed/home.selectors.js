@@ -29,7 +29,7 @@ module.exports = {
     ELECTRONIC:      "~Electronic\nTab 3 of 9",
     INDIE:           "~Indie\nTab 4 of 9",
     POP:             "~Pop\nTab 5 of 9",
-    TECHO:           "~Techno\nTab 6 of 9",   
+    TECHNO:           "~Techno\nTab 6 of 9",   
     JAZZ:            "~Jazz\nTab 7 of 9",
     HIPHOP_RAP:      "~Hip-Hop&Rap\nTab 8 of 9",
     ROCK_METAL_PUNK: "~Rock,Metal,Punk\nTab 9 of 9",
@@ -48,9 +48,7 @@ module.exports = {
 
   // ── Activity/Notification Card (format: "<Track Title>\n<Artist Name>\n<Notification message>")
   HOT_FOR_YOU: {
-   ACTIVITY_CARD: byDesc(
-      "Hot For You 🔥\nNeon Nights\nSynthwave Boy\n1.5M people liked your track"
-    ),
+    ACTIVITY_CARD:  "~Hot For You 🔥\nNeon Nights\nSynthwave Boy\n1.5M people liked your track",
     ACTION_BTN: byClassInstance(3),
   },
   

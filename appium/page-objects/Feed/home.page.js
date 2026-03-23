@@ -74,18 +74,44 @@ class HomePage extends BasePage {
 
   // ── Genre Tabs ──
 
-  async isAllGenreTabsVisible() {
+  async isInitialGenreTabsVisible() {
     const results = await Promise.all([
       this.isVisible(HomeSelectors.GENRE.REGGAE),
       this.isVisible(HomeSelectors.GENRE.COUNTRY),
       this.isVisible(HomeSelectors.GENRE.ELECTRONIC),
       this.isVisible(HomeSelectors.GENRE.INDIE),
-      this.isVisible(HomeSelectors.GENRE.POP),
-      this.isVisible(HomeSelectors.GENRE.JAZZ),
-      this.isVisible(HomeSelectors.GENRE.HIPHOP_RAP),
-      this.isVisible(HomeSelectors.GENRE.ROCK_METAL_PUNK),
     ]);
     return results.every(Boolean);
+  }
+
+  async scrollGenreSectionHorizontally() {
+    await this.scrollGenreIntoView(HomeSelectors.GENRE.ROCK_METAL_PUNK);
+  }
+
+  async scrollGenreIntoView(genreSelector) {
+    // Home genre strip is inside a horizontal scrollable view, but Android UiScrollable can
+    // find items by description in a generic scrollable container.
+    const desc = genreSelector.replace('~', '');
+    const element = await $(
+      `android=new UiScrollable(new UiSelector().scrollable(true))` +
+      `.scrollIntoView(new UiSelector().descriptionContains("${desc.split('\\n')[0]}"))`
+    );
+    return element;
+  }
+
+  async scrollToRockMetalPunk() {
+    const el = await this.scrollGenreIntoView(HomeSelectors.GENRE.ROCK_METAL_PUNK);
+    return el.isDisplayed();
+  }
+
+  async tapReggaeGenre() {
+    await this.tap(HomeSelectors.GENRE.REGGAE);
+    await this.pause(400);
+  }
+
+  async tapCountryGenre() {
+    await this.tap(HomeSelectors.GENRE.COUNTRY);
+    await this.pause(400);
   }
 
   async tapElectronicGenre() {
@@ -100,6 +126,11 @@ class HomePage extends BasePage {
 
   async tapPopGenre() {
     await this.tap(HomeSelectors.GENRE.POP);
+    await this.pause(400);
+  }
+
+  async tapTechnoGenre() {
+    await this.tap(HomeSelectors.GENRE.TECHNO);
     await this.pause(400);
   }
 
@@ -121,6 +152,20 @@ class HomePage extends BasePage {
   async tapRockMetalPunkGenre() {
     await this.tap(HomeSelectors.GENRE.ROCK_METAL_PUNK);
     await this.pause(400);
+  }
+
+  async isJazzGenreVisible() {
+    return this.isVisible(HomeSelectors.GENRE.JAZZ);
+  }
+
+  async isRockMetalPunkVisible() {
+    return this.isVisible(HomeSelectors.GENRE.ROCK_METAL_PUNK);
+  }
+
+  async getGenreTabX(selector) {
+    const element = await this.getElement(selector);
+    const loc = await element.getLocation();
+    return loc.x;
   }
 
   // ── Hot For You ──
