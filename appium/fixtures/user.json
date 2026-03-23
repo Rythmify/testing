@@ -1,0 +1,48 @@
+{
+  "validUser": {
+    "email": "sohaila@rythmify.com",
+    "password": "sohaila123"
+  },
+
+  "newUser": {
+    "email": "newuser@rythmify.com",
+    "password": "NewUser1234",
+    "username": "newuser",
+    "month": "March",
+    "day": "3",
+    "year": "2013",
+    "gender": "Female"
+  },
+
+  "existingUser": {
+    "email": "sohaila@rythmify.com",
+    "password": "Sohaila123",
+    "username": "sohaila",
+    "month": "March",
+    "day": "5",
+    "year": "2013",
+    "gender": "Female"
+  },
+
+  "ageRestrictedUser": {
+    "email": "invalidage@rythmify.com",
+    "password": "InvalidAge123",
+    "username": "invalidage",
+    "month": "March",
+    "day": "3",
+    "year": "2020",
+    "gender": "Male"
+  },
+
+  "invalidPasswords": [
+    { "password": "Ab1",           "reason": "too short",    "error": "ERROR_PASSWORD_TOO_SHORT"    },
+    { "password": "alllowercase1", "reason": "no uppercase", "error": "ERROR_PASSWORD_NO_UPPERCASE" },
+    { "password": "ALLUPPERCASE1", "reason": "no lowercase", "error": "ERROR_PASSWORD_NO_LOWERCASE" },
+    { "password": "NoNumberHere",  "reason": "no number",    "error": "ERROR_PASSWORD_NO_NUMBER"    }
+  ],
+
+  "scrollValues": {
+    "days":   "31",
+    "years":  "1982"
+  }
+}
