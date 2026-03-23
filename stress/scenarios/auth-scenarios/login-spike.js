@@ -1,16 +1,18 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+
 const BASE_URL = 'http://localhost:8080/api/v1';
+
 export const options = {
     stages: [
-        { duration: '1m', target: 50}, // ramp up to 50 users over 1 minute
-        { duration: '3m', target: 100}, // stay at 100 users for 3 minutes
-        { duration: '1m', target: 150}, // ramp up to 150 users over 1 minute
-        { duration: '2m', target: 0} // ramp down to 0 users over 2 minutes
+        { duration: '10s', target: 0   }, // start at 0
+        { duration: '30s', target: 500 }, // instant spike to 500 users
+        { duration: '1m',  target: 500 }, // hold the spike
+        { duration: '30s', target: 0   }, // drop back to 0
     ],
     thresholds: {
-        http_req_duration: ['p(95)<500'], 
-        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(95)<2000'], // higher threshold for spike
+        http_req_failed:   ['rate<0.05'],  // allow 5% failure under spike
     },
 };
 
@@ -35,8 +37,13 @@ export default function () {
     );
 
     check(response, {
-        'status is 200':  (r) => r.status === 200,
-        'has access token': (r) => JSON.parse(r.body).data?.access_token !== undefined,
+        'status is 200':    (r) => r.status === 200,
+        'has access token': (r) => {
+        try { return JSON.parse(r.body).data?.access_token !== undefined; }
+        catch(e) { return false; }
+        },
+        'no 500 error':     (r) => r.status !== 500,
     });
+
     sleep(1);
 }
