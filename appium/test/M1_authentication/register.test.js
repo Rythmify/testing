@@ -9,90 +9,90 @@ describe('M1 - Authentication: Sign Up', () => {
 
   // ─── Valid Registration ─────
 
-  // it('should register successfully with new valid credentials', async () => {
-  //   await WelcomePage.waitForWelcomeScreen();
-  //   await WelcomePage.tapRegister();
-  //   await RegisterPage.register(
-  //     users.newUser.email,
-  //     users.newUser.password,
-  //     users.newUser.username,
-  //     users.newUser.month,
-  //     users.newUser.day,
-  //     users.newUser.year,
-  //     users.newUser.gender
-  //   );
-  //   const isHome = await RegisterPage.isHomePageVisible();
-  //   expect(isHome).toBe(true);
-  // });
+  it('should register successfully with new valid credentials', async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.register(
+      users.newUser.email,
+      users.newUser.password,
+      users.newUser.username,
+      users.newUser.month,
+      users.newUser.day,
+      users.newUser.year,
+      users.newUser.gender
+    );
+    const isHome = await RegisterPage.isHomePageVisible();
+    expect(isHome).toBe(true);
+  });
 
-  // it('should scroll and select the right values and register successfully', async () => {
-  //   await WelcomePage.waitForWelcomeScreen();
-  //   await WelcomePage.tapRegister();
-  //   await RegisterPage.fillEmail(users.newUser.email);
-  //   await RegisterPage.tapContinue();
-  //   await RegisterPage.fillPassword(users.newUser.password);
-  //   await RegisterPage.tapPasswordContinue();
-  //   await RegisterPage.fillUsername(users.newUser.username);
-  //   await RegisterPage.selectMonth(users.newUser.month);
-  //   await RegisterPage.openDayDropdown();
-  //   await RegisterPage.scrollToDay(scrollValues.days);
-  //   const isCorrectDay = await $(`~${scrollValues.days}`).isDisplayed();
-  //   expect(isCorrectDay).toBe(true);
-  //   await RegisterPage.openYearDropdown();
-  //   await RegisterPage.scrollToYear(scrollValues.years);
-  //   const isCorrectYear = await $(`~${scrollValues.years}`).isDisplayed();
-  //   expect(isCorrectYear).toBe(true);
-  //   await RegisterPage.selectGender(users.newUser.gender);
-  //   await RegisterPage.tapFinalContinue();
-  //   const isHome = await RegisterPage.isHomePageVisible();
-  //   expect(isHome).toBe(true);
-  // });
+  it('should scroll and select the right values and register successfully', async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.fillEmail(users.newUser.email);
+    await RegisterPage.tapContinue();
+    await RegisterPage.fillPassword(users.newUser.password);
+    await RegisterPage.tapPasswordContinue();
+    await RegisterPage.fillUsername(users.newUser.username);
+    await RegisterPage.selectMonth(users.newUser.month);
+    await RegisterPage.openDayDropdown();
+    await RegisterPage.scrollToDay(scrollValues.days);
+    const isCorrectDay = await $(`~${scrollValues.days}`).isDisplayed();
+    expect(isCorrectDay).toBe(true);
+    await RegisterPage.openYearDropdown();
+    await RegisterPage.scrollToYear(scrollValues.years);
+    const isCorrectYear = await $(`~${scrollValues.years}`).isDisplayed();
+    expect(isCorrectYear).toBe(true);
+    await RegisterPage.selectGender(users.newUser.gender);
+    await RegisterPage.tapFinalContinue();
+    const isHome = await RegisterPage.isHomePageVisible();
+    expect(isHome).toBe(true);
+  });
 
-  // //───── Existing Email ─────
-  // it('should show error when registering with existing email', async () => {
+  //───── Existing Email ─────
+  it('should show error when registering with existing email', async () => {
     
-  //   await WelcomePage.waitForWelcomeScreen();
-  //   await WelcomePage.tapRegister();
-  //   await RegisterPage.register(
-  //     users.existingUser.email,
-  //     users.existingUser.password,
-  //     users.existingUser.username,
-  //     users.existingUser.month,
-  //     users.existingUser.day,
-  //     users.existingUser.year,
-  //     users.existingUser.gender
-  //   );
-  //   await RegisterPage.tapContinue();
-  //   await driver.pause(2000);
-  //   const isError = await RegisterPage.isAlreadyExistsErrorVisible();
-  //   expect(isError).toBe(true);
-  // });
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.register(
+      users.existingUser.email,
+      users.existingUser.password,
+      users.existingUser.username,
+      users.existingUser.month,
+      users.existingUser.day,
+      users.existingUser.year,
+      users.existingUser.gender
+    );
+    await RegisterPage.tapContinue();
+    await driver.pause(2000);
+    const isError = await RegisterPage.isAlreadyExistsErrorVisible();
+    expect(isError).toBe(true);
+  });
 
-  // //───── Invalid Email Format ─────
-  // it('should show error when registering with invalid email format', async () => {
-  //   await WelcomePage.waitForWelcomeScreen();
-  //   await WelcomePage.tapRegister();
-  //   await RegisterPage.fillEmail('invalid-email');
-  //   await RegisterPage.tapContinue();
-  //   await driver.pause(2000);
-  //   const isError = await RegisterPage.isInvalidEmailErrorVisible();
-  //   expect(isError).toBe(true);
-  // });
+  //───── Invalid Email Format ─────
+  it('should show error when registering with invalid email format', async () => {
+    await WelcomePage.waitForWelcomeScreen();
+    await WelcomePage.tapRegister();
+    await RegisterPage.fillEmail('invalid-email');
+    await RegisterPage.tapContinue();
+    await driver.pause(2000);
+    const isError = await RegisterPage.isInvalidEmailErrorVisible();
+    expect(isError).toBe(true);
+  });
 
-  // // ─── Invalid Password Format ───
-  // invalidPasswords.forEach(({ password, reason, error }) => {
-  //   it(`should show error when registering with invalid password: ${reason}`, async () => {
-  //     await WelcomePage.waitForWelcomeScreen();
-  //     await WelcomePage.tapRegister();
-  //     await RegisterPage.fillEmail(users.newUser.email);
-  //     await RegisterPage.tapContinue();
-  //     await RegisterPage.fillPassword(password);           
-  //     await RegisterPage.tapPasswordContinue();
-  //     await driver.pause(2000);
-  //     const isError = await RegisterPage.isSpecificPasswordErrorVisible(RegisterSelectors[error]); 
-  //     expect(isError).toBe(true);
-  //   });
-  // });
+  // ─── Invalid Password Format ───
+  invalidPasswords.forEach(({ password, reason, error }) => {
+    it(`should show error when registering with invalid password: ${reason}`, async () => {
+      await WelcomePage.waitForWelcomeScreen();
+      await WelcomePage.tapRegister();
+      await RegisterPage.fillEmail(users.newUser.email);
+      await RegisterPage.tapContinue();
+      await RegisterPage.fillPassword(password);           
+      await RegisterPage.tapPasswordContinue();
+      await driver.pause(2000);
+      const isError = await RegisterPage.isSpecificPasswordErrorVisible(RegisterSelectors[error]); 
+      expect(isError).toBe(true);
+    });
+  });
 
   // ─── Empty Fields Validation ───
   //1. Empty email

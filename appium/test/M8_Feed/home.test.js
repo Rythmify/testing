@@ -1,5 +1,4 @@
 const homePage = require('../../page-objects/home.page');
-const SELECTORS = require('../../selectors/home.selectors');
 
 // ─── Bottom Navigation ───
 
@@ -15,11 +14,11 @@ describe('Home Page — Bottom Navigation', () => {
     await homePage.waitForHomeScreen();
 
     const tabs = [
-      SELECTORS.NAV.HOME_TAB,
-      SELECTORS.NAV.FEED_TAB,
-      SELECTORS.NAV.SEARCH_TAB,
-      SELECTORS.NAV.LIBRARY_TAB,
-      SELECTORS.NAV.UPGRADE_TAB,
+      HomeSelectors.NAV.HOME_TAB,
+      HomeSelectors.NAV.FEED_TAB,
+      HomeSelectors.NAV.SEARCH_TAB,
+      HomeSelectors.NAV.LIBRARY_TAB,
+      HomeSelectors.NAV.UPGRADE_TAB,
     ];
 
     for (const selector of tabs) {
@@ -31,20 +30,19 @@ describe('Home Page — Bottom Navigation', () => {
     await homePage.waitForHomeScreen();
 
     await homePage.tapFeedTab();
-    expect(await homePage.isVisible(SELECTORS.NAV.FEED_TAB)).toBe(true);
+    expect(await homePage.isVisible(HomeSelectors.NAV.FEED_TAB)).toBe(true);
 
     await homePage.tapSearchTab();
-    expect(await homePage.isVisible(SELECTORS.NAV.SEARCH_TAB)).toBe(true);
+    expect(await homePage.isVisible(HomeSelectors.NAV.SEARCH_TAB)).toBe(true);
 
     await homePage.tapLibraryTab();
-    expect(await homePage.isVisible(SELECTORS.NAV.LIBRARY_TAB)).toBe(true);
+    expect(await homePage.isVisible(HomeSelectors.NAV.LIBRARY_TAB)).toBe(true);
 
     await homePage.tapUpgradeTab();
-    expect(await homePage.isVisible(SELECTORS.NAV.UPGRADE_TAB)).toBe(true);
+    expect(await homePage.isVisible(HomeSelectors.NAV.UPGRADE_TAB)).toBe(true);
 
     // Return home at end of test
     await homePage.tapHomeTab();
     expect(await homePage.isHeaderVisible()).toBe(true);
   });
-
 });

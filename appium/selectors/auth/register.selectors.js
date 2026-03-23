@@ -1,6 +1,4 @@
 const { ERROR_EMPTY_EMAIL, ERROR_EMPTY_PASSWORD } = require("./login.selectors");
-
-// appium/selectors/auth/register.selectors.js
 module.exports = {
 
   // ─── Email Screen ───

@@ -1,5 +1,5 @@
-const BasePage = require('./base.page');
-const SELECTORS = require('../selectors/home.selectors');
+const BasePage = require('../base.page');
+const HomeSelectors = require('../../selectors');
 const { scrollDown, scrollRight, pause } = require('../support/helpers');
 
 class HomePage extends BasePage {
@@ -7,45 +7,45 @@ class HomePage extends BasePage {
   // ── Navigation ──
 
   async waitForHomeScreen() {
-    await this.getElement(SELECTORS.HEADER.TITLE);
+    await this.getElement(HomeSelectors.HEADER.TITLE);
   }
 
   async tapHomeTab() {
-    await this.tap(SELECTORS.NAV.HOME_TAB);
+    await this.tap(HomeSelectors.NAV.HOME_TAB);
   }
 
   async tapFeedTab() {
-    await this.tap(SELECTORS.NAV.FEED_TAB);
+    await this.tap(HomeSelectors.NAV.FEED_TAB);
   }
 
   async tapSearchTab() {
-    await this.tap(SELECTORS.NAV.SEARCH_TAB);
+    await this.tap(HomeSelectors.NAV.SEARCH_TAB);
   }
 
   async tapLibraryTab() {
-    await this.tap(SELECTORS.NAV.LIBRARY_TAB);
+    await this.tap(HomeSelectors.NAV.LIBRARY_TAB);
   }
 
   async tapUpgradeTab() {
-    await this.tap(SELECTORS.NAV.UPGRADE_TAB);
+    await this.tap(HomeSelectors.NAV.UPGRADE_TAB);
   }
 
   // ── Header ──
 
   async isHeaderVisible() {
-    return this.isVisible(SELECTORS.HEADER.TITLE);
+    return this.isVisible(HomeSelectors.HEADER.TITLE);
   }
 
   async tapUploadButton() {
-    await this.tap(SELECTORS.HEADER.UPLOAD_BTN);
+    await this.tap(HomeSelectors.HEADER.UPLOAD_BTN);
   }
 
   async tapMessageButton() {
-    await this.tap(SELECTORS.HEADER.MESSAGE_BTN);
+    await this.tap(HomeSelectors.HEADER.MESSAGE_BTN);
   }
 
   async tapNotificationButton() {
-    await this.tap(SELECTORS.HEADER.NOTIF_BTN);
+    await this.tap(HomeSelectors.HEADER.NOTIF_BTN);
   }
 
   // ── Genre Tabs ──
@@ -62,28 +62,28 @@ class HomePage extends BasePage {
   // ── Hot For You ──
 
   async isActivityCardVisible() {
-    return this.isVisible(SELECTORS.HOT_FOR_YOU.ACTIVITY_CARD);
+    return this.isVisible(HomeSelectors.HOT_FOR_YOU.ACTIVITY_CARD);
   }
 
   async tapActivityCard() {
-    await this.tap(SELECTORS.HOT_FOR_YOU.ACTIVITY_CARD);
+    await this.tap(HomeSelectors.HOT_FOR_YOU.ACTIVITY_CARD);
   }
 
   async toggleActivityActionButton() {
-    await this.tap(SELECTORS.HOT_FOR_YOU.ACTION_BTN); // tap 1 — activate
+    await this.tap(HomeSelectors.HOT_FOR_YOU.ACTION_BTN);
     await pause(400);
-    await this.tap(SELECTORS.HOT_FOR_YOU.ACTION_BTN); // tap 2 — deactivate
+    await this.tap(HomeSelectors.HOT_FOR_YOU.ACTION_BTN); 
     await pause(400);
   }
 
   // ── Feed Track Cards ──
 
   async isNeonNightsCardVisible() {
-    return this.isVisible(SELECTORS.TRACK.NEON_NIGHTS);
+    return this.isVisible(HomeSelectors.TRACK.NEON_NIGHTS);
   }
 
   async tapNeonNightsCard() {
-    await this.tap(SELECTORS.TRACK.NEON_NIGHTS);
+    await this.tap(HomeSelectors.TRACK.NEON_NIGHTS);
   }
 
   // ── Mock Sections (scroll only) ──
