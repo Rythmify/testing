@@ -10,10 +10,10 @@ const byViewInstance = (instance) =>
 const byButtonInstance = (instance) =>
   `-android uiautomator:new UiSelector().className("android.widget.Button").instance(${instance})`;
 
-const ProfileSelectors = {
+module.exports = {
 
   LIBRARY_TAB: `~Library\nTab 4 of 5`,
-  MY_PROFILE_CARD: byViewInstance(8),
+  MY_PROFILE_CARD: byViewInstance(7),
 
   // ── Profile Screen ──
   EDIT_PROFILE_BUTTON: byViewInstance(10),
@@ -39,5 +39,3 @@ const ProfileSelectors = {
   DISCARD_CHANGES_BUTTON: "~DISCARD CHANGES",
   CONTINUE_EDITITNG_BUTTON: "~CONTINUE EDITING",
 };
-
-module.exports = { ProfileSelectors };

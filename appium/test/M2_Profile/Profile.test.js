@@ -13,17 +13,14 @@ before(async () => {
     await welcomePage.tapLogin();
     await loginPage.login(validUser.email, validUser.password);
     await home.waitForDisplayed({ timeout: 15000 });
-    await homePage.tapLibraryTab();
-    await profilePage.openMyProfile();
-    await profilePage.waitForDisplayed({ timeout: 15000 });
   }
 });
 
-// before(async () => {
-//   await profilePage.goToLibrary();
-//   await profilePage.openMyProfile();
-//   await profilePage.waitForProfileScreen();
-// });
+before(async () => {
+  await profilePage.goToLibrary();
+  await profilePage.openMyProfile();
+  await profilePage.waitForProfileScreen();
+});
 
 describe('Profile Page — UI Visibility', () => {
 
@@ -51,6 +48,8 @@ describe('Profile Page — UI Visibility', () => {
 describe('Profile Page — Displayed Data Matches Mock User', () => {
 
   it('TC-PROFILE-004 | Username is visible and correct', async () => {
+    await profilePage.tapEditButton();
+    await driver.pause(1000);
     const visible = await profilePage.isUsernameVisible(mockUser.username);
     expect(visible).toBe(true);
   });
@@ -60,11 +59,13 @@ describe('Profile Page — Displayed Data Matches Mock User', () => {
     expect(visible).toBe(true);
   });
 
+  //Fail --> a selector issue
   it('TC-PROFILE-006 | Country is visible and correct', async () => {
     const visible = await profilePage.isCountryVisible(mockUser.country);
     expect(visible).toBe(true);
   });
 
+  //Fail --> a selector issue
   it('TC-PROFILE-007 | Bio is visible and correct', async () => {
     const visible = await profilePage.isBioVisible(mockUser.bio);
     expect(visible).toBe(true);
@@ -72,6 +73,7 @@ describe('Profile Page — Displayed Data Matches Mock User', () => {
 
 });
 
+//Fail --> a selector issue
 describe('Profile Page — Flow A: Edit and Save', () => {
 
   it('TC-PROFILE-008 | User can edit all profile fields and save successfully', async () => {
@@ -87,6 +89,7 @@ describe('Profile Page — Flow A: Edit and Save', () => {
 
 });
 
+//Fail --> a selector issue
 describe('Profile Page — Flow B: Edit and Discard', () => {
 
   it('TC-PROFILE-009 | User can discard unsaved changes and return to profile', async () => {
@@ -100,6 +103,7 @@ describe('Profile Page — Flow B: Edit and Discard', () => {
 
 });
 
+//Fail --> a selector issue
 describe('Profile Page — Flow C: Back by accident → Continue Editing', () => {
 
   it('TC-PROFILE-010 | User taps back accidentally and chooses to continue editing', async () => {
