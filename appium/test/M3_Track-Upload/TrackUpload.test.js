@@ -73,6 +73,5 @@ describe('Track Upload — Upload', () => {
 
     const isSuccess = await TrackUploadPage.isSuccessMessageVisible();
     expect(isSuccess).toBe(true);
-});
-
+  });
 });

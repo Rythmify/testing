@@ -44,5 +44,12 @@
   "scrollValues": {
     "days":   "31",
     "years":  "1982"
+  },
+
+  "mockUser": {
+    "username": "KarimWI",
+    "location": "Giza",
+    "country": "Egypt",
+    "bio": "Music producer from Egypt. Into beats, basslines, and everything in between."
   }
 }
