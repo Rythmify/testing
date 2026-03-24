@@ -14,11 +14,54 @@ async function waitForElement(selector, timeout = 10000) {
 // Scroll helpers
 // ─────────────────────────────────────────────
 async function scrollDown() {
-  await driver.execute('mobile: scroll', { direction: 'down' });
+  const { width, height } = await driver.getWindowSize();
+  await driver.performActions([{
+    type: 'pointer',
+    id: 'finger1',
+    parameters: { pointerType: 'touch' },
+    actions: [
+      { type: 'pointerMove', duration: 0, x: Math.floor(width / 2), y: Math.floor(height * 0.7) },
+      { type: 'pointerDown', button: 0 },
+      { type: 'pause', duration: 100 },
+      { type: 'pointerMove', duration: 600, x: Math.floor(width / 2), y: Math.floor(height * 0.2) },
+      { type: 'pointerUp', button: 0 },
+    ],
+  }]);
+  await driver.pause(500);
 }
 
 async function scrollUp() {
-  await driver.execute('mobile: scroll', { direction: 'up' });
+  const { width, height } = await driver.getWindowSize();
+  await driver.performActions([{
+    type: 'pointer',
+    id: 'finger1',
+    parameters: { pointerType: 'touch' },
+    actions: [
+      { type: 'pointerMove', duration: 0, x: Math.floor(width / 2), y: Math.floor(height * 0.2) },
+      { type: 'pointerDown', button: 0 },
+      { type: 'pause', duration: 100 },
+      { type: 'pointerMove', duration: 600, x: Math.floor(width / 2), y: Math.floor(height * 0.7) },
+      { type: 'pointerUp', button: 0 },
+    ],
+  }]);
+  await driver.pause(500);
+}
+
+async function scrollRight(startY) {
+  const { width } = await driver.getWindowSize();
+  await driver.performActions([{
+    type: 'pointer',
+    id: 'finger1',
+    parameters: { pointerType: 'touch' },
+    actions: [
+      { type: 'pointerMove', duration: 0, x: Math.floor(width * 0.8), y: startY },
+      { type: 'pointerDown', button: 0 },
+      { type: 'pause', duration: 100 },
+      { type: 'pointerMove', duration: 600, x: Math.floor(width * 0.2), y: startY },
+      { type: 'pointerUp', button: 0 },
+    ],
+  }]);
+  await driver.pause(400);
 }
 
 // ─────────────────────────────────────────────
@@ -32,5 +75,6 @@ module.exports = {
   waitForElement,
   scrollDown,
   scrollUp,
+  scrollRight,
   pause,
 };
