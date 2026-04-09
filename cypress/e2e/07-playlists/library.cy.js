@@ -111,6 +111,7 @@ describe ('Library Page', () => {
         cy.contains('Library').click();
         cy.get(DiscoverSelectors.stickyPlayer).should('be.visible');
     })
+    //! Fail the sticky player not showing after reload, need to investigate
     it('should keep sticky player visible after reload when a track is playing', () => {
         cy.visit('/discover');
         cy.get(DiscoverSelectors.trackCard).first().trigger('mouseover');
