@@ -16,11 +16,7 @@ export const options = {
     },
 };
 export const playListIds = [
-    'f1000000-0000-0000-0000-000000000001',
-    'f1000000-0000-0000-0000-000000000002',
-    'f1000000-0000-0000-0000-000000000003',
-    'f1000000-0000-0000-0000-000000000004',
-    'f1000000-0000-0000-0000-000000000005'
+    'b903ac71-d18e-42c5-81e3-0cff4ff7c615',
 ]
 
 const tokens = {};
@@ -31,8 +27,8 @@ export default function () {
         const loginResponse = http.post(
         `${BASE_URL}/auth/login`,
         JSON.stringify({
-            identifier: 'listener4@example.com',
-            password: 'Listener1234!',
+            identifier: 'mo.khaled@example.com',
+            password: 'Password123!',
         }),
         { headers: { 'Content-Type': 'application/json' } }
         );
@@ -42,13 +38,13 @@ export default function () {
         sleep(1);
         return;
         }
+        console.log('login status: ' + loginResponse.status);
+        console.log('login body: ' + loginResponse.body);
 
         tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
     }
-    console.log('login status: ' + loginResponse.status);
-    console.log('login body: ' + loginResponse.body);
 
-    const playListId = playListIds[__VU % playListIds.length]
+    const playlistId = playListIds[__VU % playListIds.length]
     const response = http.get(
         `${BASE_URL}/playlists/${playlistId}`,
         {
