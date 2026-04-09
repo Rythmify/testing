@@ -4,6 +4,7 @@ import { DiscoverSelectors } from '../../support/selectors/feed-search.selectors
 describe ('Library Page', () => {
     beforeEach(() => {
         cy.viewport('macbook-13');
+        cy.wait(2000);
         cy.visit('/signin');
         cy.get(LoginSelectors.emailInput).click();
         cy.get(LoginSelectors.emailInput).type('mo.khaled@example.com')
