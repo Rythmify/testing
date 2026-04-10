@@ -1,15 +1,11 @@
 import { LoginSelectors } from "../../support/selectors/auth.selectors";
-import { DiscoverSelectors } from '../../support/selectors/feed-search.selectors';
 import { SettingsSelectors } from "../../support/selectors/settings.selectors";
 describe ('Settings Page', () => {
     beforeEach (() => {
         cy.viewport('macbook-13');
         cy.wait(2000);
         cy.visit('/signin');
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('mo.khaled@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Password123!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.continueButton).click();
         cy.location("pathname").should("equal","/discover");
         cy.visit('/settings');
@@ -25,7 +21,7 @@ describe ('Settings Page', () => {
         cy.contains(/Change theme/i).should('be.visible');
         cy.get(SettingsSelectors.themeLightInput).click();
     })
-    it.only('Should add new email ', () => {
+    it('Should add new email ', () => {
         cy.get(SettingsSelectors.showAddEmailButton).click();
         cy.get(SettingsSelectors.newEmailInput).should('be.visible');
         cy.get(SettingsSelectors.newEmailInput).type('AhmedE2Etest@testingteam.com');

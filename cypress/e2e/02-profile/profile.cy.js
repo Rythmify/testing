@@ -4,10 +4,7 @@ describe ('Profile Page', () => {
     beforeEach(() => {
         cy.viewport('macbook-13');
         cy.visit('/signin');
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener1@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Listener1234!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.continueButton).click();
         cy.get(ProfileSelectors.avatarMenuButton).first().click();
         cy.contains(/Profile/i).click();
