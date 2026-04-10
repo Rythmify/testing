@@ -29,4 +29,10 @@ describe ('Feed Page', () => {
         cy.get(FeedSelectors.buttonFeedReportsToggle).find('button').click();
         cy.contains(/reposted/i).should('not.exist');
     })
+    it('Should redirect to login page if not authenticated', () => {
+        cy.clearLocalStorage();
+        cy.visit('/feed', { failOnStatusCode: false });
+        cy.location("pathname").should("equal","/signin");
+        cy.get(LoginSelectors.emailInput).should('be.visible');
+    })
 })
