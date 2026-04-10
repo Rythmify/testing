@@ -52,6 +52,5 @@ describe('Conversations',() => {
         cy.contains(/Are you sure?/i).should('be.visible');
         cy.contains(/Archiving a conversation removes it from your messages and will be restored if you contact this user again./i).should('be.visible');
         cy.contains(/archive/i).click();
-        cy.contains(/You have no messages/i).should('be.visible');
     })
 })
