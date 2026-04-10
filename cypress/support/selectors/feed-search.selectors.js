@@ -12,3 +12,13 @@ export const DiscoverSelectors = {
     trendingContainer: '[data-test="trending-container"]',
     stickyPlayer: '[data-test="sticky-player"]',
 }
+
+export const FeedSelectors = {
+    buttonFeedReportsToggle: '[data-test="button-feed-reposts-toggle"]',
+    feedPage: '[data-test="feed-page"]',
+    feedList: '[data-test="feed-list"]',
+    feedItem: '[data-test^="feed-item-"]',
+    trackCard: '[data-test="track-card"]',
+    trackCardPlayBtn: '[data-test="track-card-play-btn"]',
+    trackCardBtnLike: '[data-test="track-card-btn-like"]',
+}
