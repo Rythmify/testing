@@ -14,14 +14,8 @@ export const options = {
         http_req_failed: ['rate<0.01'],
     },
 };
-export const playListIds = [
-    'b903ac71-d18e-42c5-81e3-0cff4ff7c615',
-]
-
 const tokens = {};
-
 export default function () {
-
     if (!tokens[__VU]) {
         const loginResponse = http.post(
         `${BASE_URL}/auth/login`,
@@ -39,23 +33,22 @@ export default function () {
         }
         console.log('login status: ' + loginResponse.status);
         console.log('login body: ' + loginResponse.body);
-
+    
         tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
     }
+    const response = http.post(`${BASE_URL}/playlists`, JSON.stringify({
+        "name": `test-${Date.now()}-${__VU}-${__ITER}`,
+        "description": "High energy tracks",
+        "is_public": true
+    }) 
+    , {
+        headers: { 'Content-Type': 'application/json' , 'Authorization': `Bearer ${tokens[__VU]}`}
+    })
 
-    const playlistId = playListIds[__VU % playListIds.length]
-    const response = http.get(
-        `${BASE_URL}/playlists/${playlistId}`,
-        {
-            headers: {
-                'Authorization': `Bearer ${tokens[__VU]}`,
-            },
-            }
-        );
-        console.log('playlist status: ' + response.status);
+    console.log('playlist status: ' + response.status);
         console.log('playlist body: ' + response.body);
         check(response, {
-            'status is 200':       (r) => r.status === 200,
+            'status is 201':       (r) => r.status === 201,
             'has data':            (r) => {
             try { return JSON.parse(r.body).data !== undefined; }
             catch(e) { return false; }

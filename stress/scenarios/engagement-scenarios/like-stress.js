@@ -25,8 +25,8 @@ export default function () {
         const loginResponse = http.post(
         `${BASE_URL}/auth/login`,
         JSON.stringify({
-            identifier: 'listener4@example.com',
-            password: 'Listener1234!',
+            identifier: 'listener4@example.com', //TODO : replace with actual user email from the global database
+            password: 'Listener1234!', //TODO : replace with actual user password from the global database
         }),
         { headers: { 'Content-Type': 'application/json' } }
         );
@@ -39,8 +39,8 @@ export default function () {
 
         tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
     }
-    console.log('login status: ' + loginResponse.status);
-    console.log('login body: ' + loginResponse.body);
+    console.log('login status: ' + loginResponse.status); //TODO : move this log statement inside the if block where loginResponse is defined to avoid reference error
+    console.log('login body: ' + loginResponse.body); //TODO : move this log statement inside the if block where loginResponse is defined to avoid reference error
 
     const likeResponse = http.post(`${BASE_URL}/tracks/${trackId}/like`, null, {
         headers: {

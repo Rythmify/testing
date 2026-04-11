@@ -24,7 +24,7 @@ export default function () {
         const response = http.post(
         `${BASE_URL}/auth/login`,
         JSON.stringify({
-            identifier: 'listener4@example.com', password: 'Listener1234!'
+            identifier: 'mo.khaled@example.com', password: 'Password123!'
         }),
         { headers: { 'Content-Type': 'application/json' } }
         );
@@ -34,22 +34,23 @@ export default function () {
         sleep(1);
         return;
         }
+        console.log('login status: ' + response.status);
+        console.log('login body: ' + response.body);
 
         tokens[__VU] = JSON.parse(response.body).data.access_token;
     }
 
-    console.log('login status: ' + response.status);
-    console.log('login body: ' + response.body);
 
     const response = http.get(`${BASE_URL}/feed`, {
         headers: {
         'Authorization': `Bearer ${tokens[__VU]}`,
         },
     });
-
+    console.log('feed status: ' + response.status);
+    console.log('feed body: ' + response.body); 
     check(response, {
         'status is 200':       (r) => r.status === 200,
-        'has data':            (r) => JSON.parse(r.body).data !== undefined,
+        'has data':            (r) => { try { return JSON.parse(r.body).data !== undefined; } catch(e) { return false; } },
         'no 500 server error': (r) => r.status !== 500,
     });
 
