@@ -5,10 +5,7 @@ describe ('Audio Upload', () => {
     beforeEach(() => {
         cy.viewport('macbook-13');
         cy.visit('/signin');
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener4@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Listener1234!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.continueButton).click();
         cy.location("pathname").should("equal","/discover");
         cy.get(AudioUploadSelectors.uploadLink).click();

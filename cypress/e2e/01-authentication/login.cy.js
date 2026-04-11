@@ -20,10 +20,7 @@ describe('Login Page', () => {
     })
     // Happy path test case for login with email and password
     it ('Should login with email and password successfully and redirect to discover page' , () => {
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener4@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Listener1234!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.buttonTogglePassword).click();
         cy.wait(2000);
         cy.get(LoginSelectors.continueButton).click();
@@ -38,14 +35,14 @@ describe('Login Page', () => {
     })
     it('Should show error message for invalid email format', () => {
         cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener4example.com');
+        cy.get(LoginSelectors.emailInput).type('mo.khaledexample.com');
         cy.contains(/Enter a valid email address./i).should('not.exist');
         cy.get(LoginSelectors.continueButton).click();
         cy.contains(/Enter a valid email address./i).should('be.visible');
     })
     it('Should show error message for not add password', () => {
         cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener4@example.com');
+        cy.get(LoginSelectors.emailInput).type('mo.khaled@example.com');
         cy.get(LoginSelectors.continueButton).click();
         cy.contains(/Please enter your password./i).should('not.exist');
         cy.get(LoginSelectors.continueButton).click();
@@ -53,7 +50,7 @@ describe('Login Page', () => {
     })
     it('Should show error message for short password', () => {
         cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener4@example.com');
+        cy.get(LoginSelectors.emailInput).type('mo.khaled@example.com');
         cy.get(LoginSelectors.continueButton).click();
         cy.contains(/Password must be at least 8 characters./i).should('not.exist');
         cy.get(LoginSelectors.passwordInput).type('123');

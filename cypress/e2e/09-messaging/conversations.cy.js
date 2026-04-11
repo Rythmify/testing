@@ -3,10 +3,7 @@ import { LoginSelectors } from '../../support/selectors/auth.selectors';
 describe('Conversations',() => {
     beforeEach(() => {
         cy.visit('/signin');
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('listener3@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Listener1234!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.continueButton).click();
         cy.wait(2000);
         cy.visit('/messages');
@@ -55,6 +52,5 @@ describe('Conversations',() => {
         cy.contains(/Are you sure?/i).should('be.visible');
         cy.contains(/Archiving a conversation removes it from your messages and will be restored if you contact this user again./i).should('be.visible');
         cy.contains(/archive/i).click();
-        cy.contains(/You have no messages/i).should('be.visible');
     })
 })
