@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-export const BASE_URL = 'http://localhost:8080/api/v1';
+export const BASE_URL = 'https://rythmify-backend-dev.livelypebble-6b7965ef.uaenorth.azurecontainerapps.io/api/v1';
 
 export const options = {
     stages: [
@@ -15,7 +15,7 @@ export const options = {
     },
 };
 
-export const playlistId = ['//'];
+export const playListIds = ['33b2b357-56cf-4aac-9ed5-5b4c541fa641'];
 
 const tokens = {};
 
@@ -25,8 +25,8 @@ export default function () {
         const loginResponse = http.post(
             `${BASE_URL}/auth/login`,
             JSON.stringify({
-                identifier: 'mo.khaled@example.com',
-                password: 'Password123!',
+                identifier: 'yoeweida@gmail.com',
+                password: 'Yomna1234',
             }),
             { headers: { 'Content-Type': 'application/json' } }
         );
