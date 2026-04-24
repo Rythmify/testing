@@ -1,8 +1,10 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
+
 const BASE_URL =
   "https://rythmify-backend-dev.livelypebble-6b7965ef.uaenorth.azurecontainerapps.io/api/v1";
-const trackId = ["3eaab4b9-4412-41bc-8a42-9bbbde9f418c"];
+const trackId = "3eaab4b9-4412-41bc-8a42-9bbbde9f418c";
+const expectedDeleteStatuses = http.expectedStatuses(204, 403);
 
 export const options = {
   stages: [
@@ -16,6 +18,7 @@ export const options = {
     http_req_failed: ["rate<0.01"],
   },
 };
+
 const tokens = {};
 
 export default function () {
@@ -46,7 +49,7 @@ export default function () {
     track_timestamp: 15,
   });
 
-  const likeResponse = http.post(
+  const commentResponse = http.post(
     `${BASE_URL}/tracks/${trackId}/comments`,
     commentPayload,
     {
@@ -56,17 +59,35 @@ export default function () {
       },
     },
   );
-  console.log("comment status: " + likeResponse.status);
-  console.log("comment body: " + likeResponse.body);
 
-  http.del(`${BASE_URL}/tracks/${trackId}/comments`, null, {
-    headers: {
-      Authorization: `Bearer ${tokens[__VU]}`,
-      "Content-Type": "application/json",
-    },
-  });
+  console.log("comment status: " + commentResponse.status);
+  console.log("comment body: " + commentResponse.body);
 
-  check(likeResponse, {
+  let createdCommentId = null;
+  try {
+    createdCommentId = JSON.parse(commentResponse.body).data.comment_id;
+  } catch (e) {
+    createdCommentId = null;
+  }
+
+  if (createdCommentId) {
+    const deleteResponse = http.del(
+      `${BASE_URL}/comments/${createdCommentId}`,
+      null,
+      {
+        responseCallback: expectedDeleteStatuses,
+        headers: {
+          Authorization: `Bearer ${tokens[__VU]}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    console.log("delete status: " + deleteResponse.status);
+    console.log("delete body: " + deleteResponse.body);
+  }
+
+  check(commentResponse, {
     "is status 200 or 201": (r) => r.status === 200 || r.status === 201,
     "no 401 unauthorized": (r) => r.status !== 401,
     "no 403 not allowed action": (r) => r.status !== 403,
