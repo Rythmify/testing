@@ -8,14 +8,14 @@ const expectedDeleteStatuses = http.expectedStatuses(204, 403);
 
 export const options = {
   stages: [
-    { duration: "10s", target: 5 },
-    { duration: "30s", target: 200 },
-    { duration: "1m", target: 5 },
-    { duration: "30s", target: 0 },
+    { duration: "10s", target: 0 }, // start at 0
+    { duration: "30s", target: 500 }, // instant spike to 500 users
+    { duration: "1m", target: 500 }, // hold the spike
+    { duration: "30s", target: 0 }, // drop back to 0
   ],
   thresholds: {
-    http_req_duration: ["p(95)<2000"],
-    http_req_failed: ["rate<0.05"],
+    http_req_duration: ["p(95)<2000"], // higher threshold for spike
+    http_req_failed: ["rate<0.05"], // allow 5% failure under spike
   },
 };
 
