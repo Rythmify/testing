@@ -18,7 +18,7 @@ describe("Forgot Password Page", () => {
   });
 
   it("Should return to password login step when clicking back", () => {
-    cy.get('[data-test="btn-back"]').click();
+    cy.get(ResetPasswordSelectors.backButton).click();
     cy.get(ResetPasswordSelectors.forgotPasswordButton).should("be.visible");
     cy.get(ResetPasswordSelectors.continueButton).should("be.visible");
   });
