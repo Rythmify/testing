@@ -47,4 +47,9 @@ describe("Player Page", () => {
     cy.get("body").type("{esc}");
     cy.get(PlayerSelectors.shareSocialIcons).should("not.exist");
   });
+  it("Should when i play the music it should show the sticky player and the track title should be visible", () => {
+    cy.get(PlayerSelectors.playPauseButton).click();
+    cy.get(PlayerSelectors.stickyPlayer).should("be.visible");
+    cy.get(PlayerSelectors.playerTrackTitle).should("be.visible");
+  });
 });
