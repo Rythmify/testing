@@ -17,4 +17,7 @@ export const PlayerSelectors = {
   copyEmbedButton: '[data-test="button-copy-embed"]',
   messageTab: '[data-test="tab-message"]',
   trackCard: '[data-test="card-track"]',
+  playerButtonMute: '[data-test="player-button-mute"]',
+  playerCurrentTime: '[data-test="player-current-time"]',
+  playerButtonRepeat: '[data-test="player-button-repeat"]',
 };
