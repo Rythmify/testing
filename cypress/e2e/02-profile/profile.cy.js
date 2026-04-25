@@ -102,4 +102,24 @@ describe("Profile Page", () => {
     cy.visit("/you");
     cy.location("pathname").should("include", "ahmedattay8");
   });
+  it("Should show main owner actions", () => {
+    cy.get(ProfileSelectors.shareButton).should("be.visible");
+    cy.get(ProfileSelectors.editButton).should("be.visible");
+  });
+
+  it("Should show profile tabs", () => {
+    cy.get(ProfileSelectors.tabAll).should("be.visible");
+    cy.get(ProfileSelectors.tabPopularTracks).should("be.visible");
+    cy.get(ProfileSelectors.tabTracks).should("be.visible");
+    cy.get(ProfileSelectors.tabAlbums).should("be.visible");
+    cy.get(ProfileSelectors.tabPlaylists).should("be.visible");
+    cy.get(ProfileSelectors.tabReposts).should("be.visible");
+  });
+
+  it("Should open more menu on non-owner profile", () => {
+    cy.visit("/beatmaker99");
+    cy.get(ProfileSelectors.moreButton).click();
+    cy.get(ProfileSelectors.blockButton).should("be.visible");
+    cy.get(ProfileSelectors.reportButton).should("be.visible");
+  });
 });

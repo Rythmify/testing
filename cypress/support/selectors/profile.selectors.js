@@ -75,4 +75,7 @@ export const ProfileSelectors = {
   playsMetric: '[data-test="plays-metric"]',
   likesMetric: '[data-test="likes-metric"]',
   repostsMetric: '[data-test="reposts-metric"]',
+  moreButton: '[data-test="more-button"]',
+  blockButton: '[data-test="block-button"]',
+  reportButton: '[data-test="report-button"]',
 };
