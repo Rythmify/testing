@@ -122,4 +122,21 @@ describe("Profile Page", () => {
     cy.get(ProfileSelectors.blockButton).should("be.visible");
     cy.get(ProfileSelectors.reportButton).should("be.visible");
   });
+
+  it("Should show edit fields", () => {
+    cy.get(ProfileSelectors.editButton).click();
+    cy.get(ProfileSelectors.editDisplayNameInput).should("be.visible");
+    cy.get(ProfileSelectors.editCityInput).should("be.visible");
+    cy.get(ProfileSelectors.editCountryInput).should("be.visible");
+    cy.get(ProfileSelectors.editBioInput).should("be.visible");
+  });
+
+  it("Should show edit controls", () => {
+    cy.get(ProfileSelectors.editButton).click();
+    cy.get(ProfileSelectors.addLinkButton).should("be.visible");
+    cy.get(ProfileSelectors.addSupportLinkButton).should("be.visible");
+    cy.get(ProfileSelectors.editCancelButton).should("be.visible");
+    cy.get(ProfileSelectors.editSaveButton).should("be.visible");
+    cy.get(ProfileSelectors.editModalCloseButton).should("be.visible");
+  });
 });
