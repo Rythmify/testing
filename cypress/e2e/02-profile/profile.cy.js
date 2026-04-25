@@ -73,4 +73,33 @@ describe("Profile Page", () => {
     cy.get(ProfileSelectors.editCancelButton).click();
     cy.contains(/Should Not Save/i).should("not.exist");
   });
+
+  it("Should display user profile with basic info", () => {
+    cy.get(ProfileSelectors.profileFollowers).should("be.visible");
+    cy.get(ProfileSelectors.profileFollowing).should("be.visible");
+  });
+
+  it("Should show follow/unfollow button for non-own profile", () => {
+    cy.visit("/beatmaker99");
+    if (cy.contains(/Follow/i).should("not.exist")) {
+      cy.get(ProfileSelectors.followButton).click();
+    }
+    cy.contains(/Following/i);
+  });
+
+  it("Should hide follow button on own profile", () => {
+    cy.wait(500);
+    cy.get(ProfileSelectors.followButton).should("not.exist");
+  });
+
+  it("Should display all profile tabs", () => {
+    cy.get(ProfileSelectors.profileTabTracks).should("be.visible");
+    cy.get(ProfileSelectors.profileTabAlbums).should("be.visible");
+    cy.get(ProfileSelectors.profileTabReposts).should("be.visible");
+  });
+
+  it("Should redirect to own profile when visiting 'you'", () => {
+    cy.visit("/you");
+    cy.location("pathname").should("include", "ahmedattay8");
+  });
 });
