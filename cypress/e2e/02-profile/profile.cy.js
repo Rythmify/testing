@@ -139,4 +139,17 @@ describe("Profile Page", () => {
     cy.get(ProfileSelectors.editSaveButton).should("be.visible");
     cy.get(ProfileSelectors.editModalCloseButton).should("be.visible");
   });
+  it("Should display share modal", () => {
+    cy.get(ProfileSelectors.shareButton).click();
+    cy.get(ProfileSelectors.shareModalContent).should("be.visible");
+    cy.get(ProfileSelectors.shareModalClose).should("be.visible");
+  });
+
+  it("Should switch to message tab", () => {
+    cy.get(ProfileSelectors.shareButton).click();
+    cy.get(ProfileSelectors.shareTabMessage).click();
+    cy.get(ProfileSelectors.messageToInput).should("be.visible");
+    cy.get(ProfileSelectors.messageBodyInput).should("be.visible");
+    cy.get(ProfileSelectors.messageSendButton).should("be.visible");
+  });
 });
