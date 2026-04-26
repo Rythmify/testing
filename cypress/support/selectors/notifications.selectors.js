@@ -14,4 +14,9 @@ export const NotificationsSelectors = {
     '[data-test="notification-filter-option-repost"]',
   notificationFilterOptionFollow:
     '[data-test="notification-filter-option-follow"]',
+  notificationCard: '[data-test^="notification-card-"]',
+  notificationContent: '[data-test^="notification-content-"]',
+  notificationTime: '[data-test^="notification-time-"]',
+  notificationMenuBtn: '[data-test^="notification-menu-btn-"]',
+  notificationMenu: '[data-test^="notification-menu-"]',
 };
