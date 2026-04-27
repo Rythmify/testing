@@ -14,4 +14,12 @@ export const AudioUploadSelectors = {
   uploadTagsInput: '[data-test="upload-tags-input"]',
   uploadDescriptionInput: '[data-test="upload-description-input"]',
   uploadButton: '[data-test="upload-button"]',
+  // New selectors
+  uploadDetailsForm: '[data-test="upload-details-form"]',
+  uploadTrackLinkInput: '[data-test="upload-track-link-input"]',
+  uploadArtistsInput: '[data-test="upload-artists-input"]',
+  uploadLimitReached: '[data-test="upload-limit-reached"]',
+  uploadErrorMessage: '[data-test="upload-error-message"]',
+  viewTrackButton: '[data-test="view-track-button"]',
+  unlockArtistProButton: '[data-test="unlock-artist-pro-button"]',
 };
