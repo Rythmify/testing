@@ -104,4 +104,11 @@ describe("Feed Page", () => {
     cy.location("pathname").should("equal", "/signin");
     cy.get(LoginSelectors.emailInput).should("be.visible");
   });
+
+  it("Should keep feed page path stable after refresh", () => {
+    cy.visit("/feed");
+    cy.reload();
+    cy.location("pathname").should("equal", "/feed");
+    cy.get(FeedSelectors.feedPage).should("be.visible");
+  });
 });
