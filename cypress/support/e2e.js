@@ -15,3 +15,10 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
+Cypress.on('uncaught:exception', (err) => {
+  // Ignore AbortError from audio streaming
+  if (err.message.includes('signal is aborted without reason')) {
+    return false
+  }
+})

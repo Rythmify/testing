@@ -5,10 +5,7 @@ describe ('Discover Page', () => {
         cy.viewport('macbook-13');
         cy.wait(2000);
         cy.visit('/signin');
-        cy.get(LoginSelectors.emailInput).click();
-        cy.get(LoginSelectors.emailInput).type('mo.khaled@example.com');
-        cy.get(LoginSelectors.continueButton).click();
-        cy.get(LoginSelectors.passwordInput).type('Password123!');
+        cy.typeEmailAndPassword();
         cy.get(LoginSelectors.continueButton).click();
         cy.location("pathname").should("equal","/discover");
     })
