@@ -97,4 +97,11 @@ describe("Login Page", () => {
     cy.get(LoginSelectors.passwordInput).should("be.visible");
     cy.location("pathname").should("equal", "/signin");
   });
+
+  it("Should toggle password visibility on password step", () => {
+    cy.typeEmailAndPassword();
+    cy.get(LoginSelectors.passwordInput).should("have.attr", "type", "password");
+    cy.get(LoginSelectors.buttonTogglePassword).click();
+    cy.get(LoginSelectors.passwordInput).should("have.attr", "type", "text");
+  });
 });
