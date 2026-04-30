@@ -75,7 +75,11 @@ describe("Register Page", () => {
 
   it("Should toggle password visibility on create account step", () => {
     cy.get(SignUpSelectors.passwordInput).type("Listener1234!");
-    cy.get(SignUpSelectors.passwordInput).should("have.attr", "type", "password");
+    cy.get(SignUpSelectors.passwordInput).should(
+      "have.attr",
+      "type",
+      "password",
+    );
     cy.get(SignUpSelectors.buttonTogglePassword).click();
     cy.get(SignUpSelectors.passwordInput).should("have.attr", "type", "text");
   });
