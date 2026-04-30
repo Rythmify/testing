@@ -60,4 +60,11 @@ describe ('Discover Page', () => {
         cy.get(DiscoverSelectors.searchInput).clear();
         cy.get(DiscoverSelectors.searchInput).should('have.value','');
     })
+
+    it('Should keep discover core sections visible after reload', () => {
+        cy.reload();
+        cy.get(DiscoverSelectors.searchInput).should('be.visible');
+        cy.get(DiscoverSelectors.artistListSection).should('be.visible');
+        cy.get(DiscoverSelectors.trendingContainer).should('be.visible');
+    })
 })
