@@ -69,4 +69,10 @@ describe("Notifications", () => {
       }
     });
   });
+
+  it("Should keep notifications page stable after reload", () => {
+    cy.reload();
+    cy.get(NotificationsSelectors.notificationHeader).should("be.visible");
+    cy.get(NotificationsSelectors.notificationFilterBtn).should("be.visible");
+  });
 });
