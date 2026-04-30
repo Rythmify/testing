@@ -329,4 +329,13 @@ describe("Search Functionality", () => {
       // In real scenario, would stub network error and check for error message
     });
   });
+
+  describe("Additional Search Coverage", () => {
+    it("should preserve query params after reload", () => {
+      cy.visit("/search/sounds?q=ambient");
+      cy.reload();
+      cy.url().should("include", "q=ambient");
+      cy.get(SearchSelectors.searchPage).should("exist");
+    });
+  });
 });

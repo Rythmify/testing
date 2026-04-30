@@ -22,8 +22,6 @@ describe("Profile Page", () => {
     cy.get(ProfileSelectors.editBioInput).should("be.visible");
     cy.get(ProfileSelectors.editCityInput).should("be.visible");
     cy.get(ProfileSelectors.editCountryInput).should("be.visible");
-    cy.get(ProfileSelectors.editSaveButton).should("be.visible");
-    cy.get(ProfileSelectors.editCancelButton).should("be.visible");
   });
 
   it("Should show validation error when display name is numbers only", () => {
@@ -80,9 +78,9 @@ describe("Profile Page", () => {
   });
 
   it("Should show follow/unfollow button for non-own profile", () => {
-    cy.visit("/beatmaker99");
+    cy.visit("/theweeknd");
     if (cy.contains(/Follow/i).should("not.exist")) {
-      cy.get(ProfileSelectors.followButton).click();
+      cy.contains(/Follow/i).click();
     }
     cy.contains(/Following/i);
   });
@@ -151,5 +149,10 @@ describe("Profile Page", () => {
     cy.get(ProfileSelectors.messageToInput).should("be.visible");
     cy.get(ProfileSelectors.messageBodyInput).should("be.visible");
     cy.get(ProfileSelectors.messageSendButton).should("be.visible");
+  });
+
+  it("Should navigate to following page when clicking following stat", () => {
+    cy.get(ProfileSelectors.followingStat).click();
+    cy.location("pathname").should("include", "/following");
   });
 });

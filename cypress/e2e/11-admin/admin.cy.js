@@ -96,4 +96,11 @@ describe("Admin panel coverage", () => {
     cy.get(AdminSelectors.btnLogout).click();
     cy.url().should("include", "/signin");
   });
+
+  it("opens reports page and keeps filters visible", () => {
+    cy.get(AdminSelectors.navReports).click();
+    cy.url().should("include", "/admin/reports");
+    cy.get(AdminSelectors.selectStatusFilter).should("exist");
+    cy.get(AdminSelectors.selectReasonFilter).should("exist");
+  });
 });

@@ -29,7 +29,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.selectGenreDropdown).type("Ambient{enter}");
     cy.contains(/Ambient/i).click();
     cy.get(AudioUploadSelectors.uploadTagsInput).should("be.visible");
-    cy.get(AudioUploadSelectors.uploadTagsInput).type("Test"); 
+    cy.get(AudioUploadSelectors.uploadTagsInput).type("Test");
     cy.get(AudioUploadSelectors.uploadDescriptionInput).should("be.visible");
     cy.get(AudioUploadSelectors.uploadDescriptionInput).type(
       "This is a test track",
@@ -72,7 +72,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.uploadErrorMessage).should("be.visible");
     cy.get(AudioUploadSelectors.uploadErrorMessage).should(
       "contain",
-      "Track title is required"
+      "Track title is required",
     );
   });
 
@@ -101,7 +101,10 @@ describe("Audio Upload", () => {
       "This is a very long track title that exceeds normal character limits to test how the system handles extremely long input strings and whether it properly truncates or validates the input for database storage and display purposes";
     cy.get(AudioUploadSelectors.uploadTitleInput).clear();
     cy.get(AudioUploadSelectors.uploadTitleInput).type(longTitle);
-    cy.get(AudioUploadSelectors.uploadTitleInput).should("have.value", longTitle);
+    cy.get(AudioUploadSelectors.uploadTitleInput).should(
+      "have.value",
+      longTitle,
+    );
   });
 
   // Edge case: Title with special characters and emoji
@@ -115,7 +118,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.uploadTitleInput).type(specialTitle);
     cy.get(AudioUploadSelectors.uploadTitleInput).should(
       "have.value",
-      specialTitle
+      specialTitle,
     );
   });
 
@@ -129,7 +132,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.uploadTitleInput).type("My New Song 2025");
     cy.get(AudioUploadSelectors.uploadTrackLinkInput).should(
       "have.value",
-      "my-new-song-2025"
+      "my-new-song-2025",
     );
   });
 
@@ -145,7 +148,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.uploadTrackLinkInput).type("custom-url-slug");
     cy.get(AudioUploadSelectors.uploadTrackLinkInput).should(
       "have.value",
-      "custom-url-slug"
+      "custom-url-slug",
     );
   });
 
@@ -179,7 +182,7 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.uploadDescriptionInput).type(longDescription);
     cy.get(AudioUploadSelectors.uploadDescriptionInput).should(
       "have.value",
-      longDescription
+      longDescription,
     );
   });
 
@@ -193,7 +196,10 @@ describe("Audio Upload", () => {
     const artists = "Artist A, Artist B, Artist C, Producer X";
     cy.get(AudioUploadSelectors.uploadArtistsInput).clear();
     cy.get(AudioUploadSelectors.uploadArtistsInput).type(artists);
-    cy.get(AudioUploadSelectors.uploadArtistsInput).should("have.value", artists);
+    cy.get(AudioUploadSelectors.uploadArtistsInput).should(
+      "have.value",
+      artists,
+    );
   });
 
   // Edge case: Form details visibility and structure
@@ -232,5 +238,12 @@ describe("Audio Upload", () => {
     cy.get(AudioUploadSelectors.restartRecordingButton).should("be.visible");
     cy.get(AudioUploadSelectors.restartRecordingButton).click();
     cy.get(AudioUploadSelectors.startRecordingButton).should("be.visible");
+  });
+
+  it("Should keep upload page route and controls after reload", () => {
+    cy.reload();
+    cy.location("pathname").should("include", "/upload");
+    cy.get(AudioUploadSelectors.chooseFileInput).should("be.visible");
+    cy.get(AudioUploadSelectors.recordSectionToggleButton).should("be.visible");
   });
 });

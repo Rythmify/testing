@@ -2,7 +2,7 @@ import { PlayerSelectors } from "../../support/selectors/player.selectors";
 
 describe("Player Page", () => {
   beforeEach(() => {
-    cy.visit("/rowidaahmedd/3bc04b27-d8f7-4a8f-8007-87e9f93ef4f5");
+    cy.visit("/unknown/61f526f9-2cb8-4f30-aa16-9df16d7b5f01");
     cy.wait(2000);
   });
 
@@ -125,5 +125,11 @@ describe("Player Page", () => {
     startPlayback();
     cy.get(PlayerSelectors.playerButtonMute).should("be.visible").click();
     cy.get(PlayerSelectors.playerVolumeWrapper).should("be.visible");
+  });
+
+  it("Should keep player controls visible after reload while on track page", () => {
+    cy.reload();
+    cy.get(PlayerSelectors.playPauseButton).should("be.visible");
+    cy.get(PlayerSelectors.shareButton).should("be.visible");
   });
 });

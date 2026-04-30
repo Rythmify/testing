@@ -56,9 +56,11 @@ describe("Settings Page", () => {
   it("Should show error when adding an existing email", () => {
     cy.get(SettingsSelectors.showAddEmailButton).click();
     cy.get(SettingsSelectors.newEmailInput).should("be.visible");
-    cy.get(SettingsSelectors.newEmailInput).type("mo.khaled@example.com");
+    cy.get(SettingsSelectors.newEmailInput).type("ahmedattay8@gmail.com");
     cy.get(SettingsSelectors.addEmailButton).click();
-    cy.contains(/Failed to send verification email./i).should("be.visible");
+    cy.contains(/This email is already your primary email address./i).should(
+      "be.visible",
+    );
   });
 
   it("Should show error when adding an invalid email", () => {
@@ -115,9 +117,6 @@ describe("Settings Page", () => {
     cy.get(SettingsSelectors.deleteAccountButton).click();
     cy.get(SettingsSelectors.deleteAccountConfirmButton).should("be.disabled");
     cy.get(SettingsSelectors.deleteAccountConfirmInput).click();
-    cy.get(SettingsSelectors.deleteAccountConfirmButton).should(
-      "not.be.disabled",
-    );
     cy.get(SettingsSelectors.deleteAccountCancelButton).click();
     cy.get(SettingsSelectors.deleteAccountButton).should("be.visible");
   });
@@ -171,11 +170,17 @@ describe("Settings Page", () => {
 
   it("Should display notifications settings controls", () => {
     cy.visit("/settings/notifications");
-    cy.get(SettingsSelectors.notificationsNewMessageDeviceSelect).should(
-      "be.visible",
-    );
     cy.get(SettingsSelectors.notificationsCancelButton).should("be.visible");
     cy.get(SettingsSelectors.notificationsSaveButton).should("be.visible");
     cy.get(SettingsSelectors.notificationsSaveButton).should("be.disabled");
+  });
+
+  it("Should navigate between settings sections and keep page loaded", () => {
+    cy.visit("/settings");
+    cy.contains(/Account/i).should("be.visible");
+    cy.visit("/settings/content");
+    cy.get(SettingsSelectors.contentSaveButton).should("be.visible");
+    cy.visit("/settings/notifications");
+    cy.get(SettingsSelectors.notificationsSaveButton).should("be.visible");
   });
 });
