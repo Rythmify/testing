@@ -35,6 +35,21 @@ export const AdminSelectors = {
   btnViewPrefix: '[data-test^="btn-view-"]',
   btnReviewPrefix: '[data-test^="btn-review-"]',
 
+  // Track moderation
+  btnTrackActionsPrefix: '[data-test^="btn-track-actions-"]',
+  btnToggleHide: '[data-test="btn-toggle-hide"]',
+  btnToggleUnhide: '[data-test="btn-toggle-unhide"]',
+  btnDeleteTrack: '[data-test="btn-delete-track"]',
+  textareaHideReason: '[data-test="textarea-hide-reason"]',
+  btnHideCancel: '[data-test="btn-hide-cancel"]',
+  btnHideConfirm: '[data-test="btn-hide-confirm"]',
+  btnDeleteCancel: '[data-test="btn-delete-cancel"]',
+  btnDeleteConfirm: '[data-test="btn-delete-confirm"]',
+  inputTrackSearch: '[data-test="input-track-search"]',
+  btnClearSearch: '[data-test="btn-clear-search"]',
+  btnPrevPage: '[data-test="btn-prev-page"]',
+  btnNextPage: '[data-test="btn-next-page"]',
+
   // Generic
   adminRoot: "body",
 };

@@ -1,7 +1,7 @@
 import { LoginSelectors } from "../../support/selectors/auth.selectors";
 import { AdminSelectors } from "../../support/selectors/admin.selectors";
 
-describe("Admin panel smoke tests", () => {
+describe("Admin panel coverage", () => {
   const adminEmail = "devops@rythmify.com";
   const adminPassword = "admin123!";
 
@@ -18,46 +18,78 @@ describe("Admin panel smoke tests", () => {
     cy.visit("/admin");
   });
 
-  it("logs in as admin and opens dashboard", () => {
-    cy.get(AdminSelectors.navDashboard).should("exist");
+  it("loads the dashboard and exposes navigation", () => {
     cy.get(AdminSelectors.btnRefresh).should("exist");
+    cy.get(AdminSelectors.periodBtnDay).should("exist");
+    cy.get(AdminSelectors.periodBtnWeek).should("exist");
+    cy.get(AdminSelectors.periodBtnMonth).should("exist");
+    cy.get(AdminSelectors.quickActionReports).should("exist");
+    cy.get(AdminSelectors.quickActionUsers).should("exist");
+    cy.get(AdminSelectors.quickActionTracks).should("exist");
   });
 
-  it("navigates to Reports & Appeals and interacts with a report if present", () => {
+  it("switches dashboard periods and keeps the page stable", () => {
+    cy.get(AdminSelectors.periodBtnDay).click();
+    cy.get(AdminSelectors.periodBtnWeek).click();
+    cy.get(AdminSelectors.periodBtnMonth).click();
+    cy.get(AdminSelectors.btnRefresh).click();
+    cy.get(AdminSelectors.navDashboard).should("exist");
+  });
+
+  it("uses dashboard quick actions to reach admin routes", () => {
+    cy.get(AdminSelectors.quickActionReports).click();
+    cy.url().should("include", "/admin/reports");
+    cy.go("back");
+
+    cy.get(AdminSelectors.quickActionUsers).click();
+    cy.url().should("include", "/admin/users");
+    cy.go("back");
+
+    cy.get(AdminSelectors.quickActionTracks).click();
+    cy.url().should("include", "/admin/tracks");
+  });
+
+  it("navigates through admin sections from the sidebar", () => {
     cy.get(AdminSelectors.navReports).click();
     cy.url().should("include", "/admin/reports");
-    cy.get(AdminSelectors.btnRefresh).should("exist");
-
-    // If any view buttons exist, open the first and check resolve modal controls
-    cy.window().then((win) => {
-      const viewButtons = win.document.querySelectorAll(
-        '[data-test^="btn-view-"]',
-      );
-      if (viewButtons.length > 0) {
-        cy.get('[data-test^="btn-view-"]').first().click();
-        // Wait a bit for modal to appear and then try resolve buttons
-        cy.get(AdminSelectors.btnResolvePrefix, { timeout: 2000 }).then(
-          ($els) => {
-            if ($els.length > 0) {
-              cy.get(AdminSelectors.btnResolvePrefix).first().click();
-              cy.get(AdminSelectors.textareaAdminNote).should("exist");
-              cy.get(AdminSelectors.btnResolveConfirm).should("exist");
-              cy.get(AdminSelectors.btnResolveCancel).should("exist");
-              // Cancel to avoid making changes
-              cy.get(AdminSelectors.btnResolveCancel).click();
-            }
-          },
-        );
-      }
-    });
-  });
-
-  it("visits Users and Tracks admin routes", () => {
     cy.get(AdminSelectors.navUsers).click();
     cy.url().should("include", "/admin/users");
-
     cy.get(AdminSelectors.navTracks).click();
     cy.url().should("include", "/admin/tracks");
+  });
+
+  it("searches tracks and exercises moderation controls", () => {
+    cy.get(AdminSelectors.navTracks).click();
+    cy.url().should("include", "/admin/tracks");
+
+    cy.get(AdminSelectors.inputTrackSearch)
+      .should("exist")
+      .clear()
+      .type("test");
+    cy.get(AdminSelectors.btnClearSearch).should("exist").click();
+    cy.get(AdminSelectors.inputTrackSearch).should("have.value", "");
+
+    cy.get("body").then(($body) => {
+      if ($body.find(AdminSelectors.btnTrackActionsPrefix).length > 0) {
+        cy.get(AdminSelectors.btnTrackActionsPrefix).first().click();
+        cy.get("body").then(($modal) => {
+          if ($modal.find(AdminSelectors.btnToggleHide).length > 0) {
+            cy.get(AdminSelectors.btnToggleHide).click();
+            cy.get(AdminSelectors.textareaHideReason)
+              .should("exist")
+              .type("Moderation test reason");
+            cy.get(AdminSelectors.btnHideCancel).click();
+          }
+          if ($modal.find(AdminSelectors.btnToggleUnhide).length > 0) {
+            cy.get(AdminSelectors.btnToggleUnhide).click();
+            cy.get(AdminSelectors.btnHideCancel).click();
+          }
+        });
+      }
+    });
+
+    cy.get(AdminSelectors.btnPrevPage).should("exist");
+    cy.get(AdminSelectors.btnNextPage).should("exist");
   });
 
   it("logs out successfully", () => {
