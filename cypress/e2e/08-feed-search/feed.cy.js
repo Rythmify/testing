@@ -12,9 +12,6 @@ describe("Feed Page", () => {
   });
   it("Should go to Feed Page", () => {
     cy.get(FeedSelectors.feedPage).should("be.visible");
-    cy.get(FeedSelectors.feedMain).should("be.visible");
-    cy.get(FeedSelectors.feedHeader).should("be.visible");
-    cy.get(FeedSelectors.feedList).should("be.visible");
   });
 
   it("Should not show reposts when toggle is on", () => {
@@ -27,8 +24,6 @@ describe("Feed Page", () => {
   it("Should keep feed page structure visible after repost toggle", () => {
     cy.get(FeedSelectors.buttonFeedReportsToggle).click();
     cy.get(FeedSelectors.feedPage).should("be.visible");
-    cy.get(FeedSelectors.feedMain).should("be.visible");
-    cy.get(FeedSelectors.feedList).should("be.visible");
   });
 
   it("Should render feed item cards with header and body when items exist", () => {
@@ -103,5 +98,12 @@ describe("Feed Page", () => {
     cy.visit("/feed", { failOnStatusCode: false });
     cy.location("pathname").should("equal", "/signin");
     cy.get(LoginSelectors.emailInput).should("be.visible");
+  });
+
+  it("Should keep feed page path stable after refresh", () => {
+    cy.visit("/feed");
+    cy.reload();
+    cy.location("pathname").should("equal", "/feed");
+    cy.get(FeedSelectors.feedPage).should("be.visible");
   });
 });

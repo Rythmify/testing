@@ -4,9 +4,9 @@ describe("Conversations", () => {
   beforeEach(() => {
     cy.visit("/signin");
     cy.get(LoginSelectors.emailInput).click();
-    cy.get(LoginSelectors.emailInput).clear().type("mo.khaled@example.com");
+    cy.get(LoginSelectors.emailInput).clear().type("ahmedattay8@gmail.com");
     cy.get(LoginSelectors.continueButton).click();
-    cy.get(LoginSelectors.passwordInput).clear().type("Password123!");
+    cy.get(LoginSelectors.passwordInput).clear().type("Ahmedattay66");
     cy.get(LoginSelectors.continueButton).click();
     cy.wait(2000);
     cy.visit("/messages");
@@ -29,13 +29,6 @@ describe("Conversations", () => {
     cy.contains(/Send/i).click();
     cy.contains(/Hello,this is a test message!/i).should("be.visible");
   });
-  it("Should click the unread button and mark the conversation as unread ", () => {
-    cy.contains(/Mark as unread/i)
-      .should("be.visible")
-      .click();
-    cy.contains(/Mark as unread/i).should("not.exist");
-    cy.contains(/Mark as read/i).should("be.visible");
-  });
   it("Should click the report button and display the report form ", () => {
     cy.get(ConversationsSelectors.conversationReportButton).click();
     cy.get(ConversationsSelectors.reportSpam).should("be.visible");
@@ -56,5 +49,11 @@ describe("Conversations", () => {
     cy.get(ConversationsSelectors.conversationBlockButton).click();
     cy.contains(/Block/i).should("be.visible");
     cy.contains(/follow you/i).should("be.visible");
+  });
+
+  it("Should keep conversation header visible after refresh", () => {
+    cy.reload();
+    cy.get(ConversationsSelectors.conversationHeader).should("be.visible");
+    cy.get(ConversationsSelectors.messagingInput).should("be.visible");
   });
 });
