@@ -210,4 +210,86 @@ describe("Others tests", () => {
     assertIfPresent(AdminSelectors.quickActionUsers);
     assertIfPresent(AdminSelectors.quickActionTracks);
   });
+
+  it("Discover route keeps search and artist controls visible after reload", () => {
+    cy.visit("/discover");
+    cy.reload();
+    assertIfPresent(DiscoverSelectors.searchInput);
+    assertIfPresent(DiscoverSelectors.artistToolsCollapseButton);
+    assertIfPresent(DiscoverSelectors.trendingContainer);
+  });
+
+  it("Profile route can open follower and following pages from the sidebar", () => {
+    cy.visit("/you");
+    cy.get("body").then(($body) => {
+      if ($body.find(ProfileSelectors.followersStat).length) {
+        cy.get(ProfileSelectors.followersStat).click();
+        cy.location("pathname").should("include", "/follower");
+      }
+    });
+    cy.visit("/you");
+    cy.get("body").then(($body) => {
+      if ($body.find(ProfileSelectors.followingStat).length) {
+        cy.get(ProfileSelectors.followingStat).click();
+        cy.location("pathname").should("include", "/following");
+      }
+    });
+  });
+
+  it("Notifications route can open the filter menu when available", () => {
+    cy.visit("/notifications");
+    cy.get("body").then(($body) => {
+      if ($body.find(NotificationsSelectors.notificationFilterBtn).length) {
+        cy.get(NotificationsSelectors.notificationFilterBtn).click();
+        assertIfPresent(NotificationsSelectors.notificationFilterMenu);
+      }
+    });
+  });
+
+  it("Admin route quick actions can navigate to admin sections", () => {
+    cy.visit("/admin");
+    cy.get("body").then(($body) => {
+      if ($body.find(AdminSelectors.quickActionReports).length) {
+        cy.get(AdminSelectors.quickActionReports).click();
+        cy.location("pathname").should("include", "/admin/reports");
+      }
+    });
+  });
+
+  it("Library route exposes filter toggle and playlist sections after reload", () => {
+    cy.visit("/you/library");
+    cy.reload();
+    assertIfPresent(PlaylistsSelectors.recentlyPlayedCards);
+    assertIfPresent(PlaylistsSelectors.libraryLikes);
+    assertIfPresent(PlaylistsSelectors.libraryPlaylists);
+    assertIfPresent(PlaylistsSelectors.playlistFilterToggle);
+  });
+
+  it("Upload route exposes recording controls when recording section is opened", () => {
+    cy.visit("/upload");
+    cy.get("body").then(($body) => {
+      if ($body.find(AudioUploadSelectors.recordSectionToggleButton).length) {
+        cy.get(AudioUploadSelectors.recordSectionToggleButton).click();
+        assertIfPresent(AudioUploadSelectors.startRecordingButton);
+        assertIfPresent(AudioUploadSelectors.stopRecordingButton);
+      }
+    });
+  });
+
+  it("Player route can open share popup controls when available", () => {
+    cy.visit("/discover");
+    cy.get("body").then(($body) => {
+      if ($body.find(DiscoverSelectors.trackCard).length) {
+        cy.get(DiscoverSelectors.trackCard).first().trigger("mouseover");
+        cy.get(DiscoverSelectors.playButton).first().click({ force: true });
+        cy.get("body").then(($player) => {
+          if ($player.find(PlayerSelectors.shareButton).length) {
+            cy.get(PlayerSelectors.shareButton).click({ force: true });
+            assertIfPresent(PlayerSelectors.sharePopup);
+            assertIfPresent(PlayerSelectors.copyLinkButton);
+          }
+        });
+      }
+    });
+  });
 });

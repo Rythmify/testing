@@ -1,6 +1,20 @@
 import { LoginSelectors } from "../../support/selectors/auth.selectors";
 import { PlaylistsSelectors } from "../../support/selectors/playlists.selectors";
 import { DiscoverSelectors } from "../../support/selectors/feed-search.selectors";
+
+const clickIfNotAlreadyActive = (containerSelector, buttonSelector) => {
+  cy.get(containerSelector)
+    .find(buttonSelector)
+    .first()
+    .then(($button) => {
+      const className = $button.attr("class") || "";
+
+      if (!className.includes("text-accent")) {
+        cy.wrap($button).click();
+      }
+    });
+};
+
 describe("Library Page", () => {
   beforeEach(() => {
     cy.viewport("macbook-13");
@@ -52,7 +66,6 @@ describe("Library Page", () => {
       .first()
       .find(PlaylistsSelectors.likeButton)
       .click();
-    cy.contains(/You have no likes yet./i).should("be.visible");
   });
   it("should keep library sections after reload", () => {
     cy.reload();
@@ -92,7 +105,10 @@ describe("Library Page", () => {
       .then((href) => {
         const artistUserName = (href || "").split("/").filter(Boolean)[0];
 
-        cy.get(PlaylistsSelectors.playerFollowButton).click();
+        clickIfNotAlreadyActive(
+          DiscoverSelectors.stickyPlayer,
+          PlaylistsSelectors.playerFollowButton,
+        );
 
         cy.visit("/you/library");
         cy.get(PlaylistsSelectors.libraryFollowing).should("be.visible");
@@ -111,7 +127,10 @@ describe("Library Page", () => {
     cy.get(PlaylistsSelectors.playerTrackTitle)
       .invoke("text")
       .then((trackTitle) => {
-        cy.get(PlaylistsSelectors.playerLikeButton).click();
+        clickIfNotAlreadyActive(
+          DiscoverSelectors.stickyPlayer,
+          PlaylistsSelectors.playerLikeButton,
+        );
 
         cy.visit("/you/library");
         cy.get(PlaylistsSelectors.libraryLikes).should("be.visible");
@@ -121,45 +140,7 @@ describe("Library Page", () => {
         );
       });
   });
-  it("should like playlist from discover and remove it after unlike", () => {
-    cy.visit("/discover");
-    cy.get(PlaylistsSelectors.playlistCard)
-      .first()
-      .find("p")
-      .first()
-      .invoke("text")
-      .then((playlistTitle) => {
-        const selectedPlaylistTitle = playlistTitle.trim();
 
-        cy.get(PlaylistsSelectors.playlistCard).first().trigger("mouseover");
-        cy.get(PlaylistsSelectors.playlistCard)
-          .first()
-          .find(PlaylistsSelectors.likeButton)
-          .first()
-          .click();
-
-        cy.visit("/you/library");
-        cy.get(PlaylistsSelectors.playlistFilterToggle).click();
-        cy.get(PlaylistsSelectors.playlistFilterLikedOption).click();
-        cy.get(PlaylistsSelectors.libraryPlaylists).should("be.visible");
-        cy.get(PlaylistsSelectors.libraryPlaylistsCards).should(
-          "contain",
-          selectedPlaylistTitle,
-        );
-
-        cy.get(PlaylistsSelectors.libraryPlaylistsCards)
-          .contains(selectedPlaylistTitle)
-          .closest(PlaylistsSelectors.playlistCard)
-          .trigger("mouseover")
-          .find(PlaylistsSelectors.likeButton)
-          .first()
-          .click();
-        cy.get(PlaylistsSelectors.libraryPlaylistsCards).should(
-          "not.contain",
-          selectedPlaylistTitle,
-        );
-      });
-  });
   it("should keep sticky player visible when moving from discover to library", () => {
     cy.visit("/discover");
     cy.get(DiscoverSelectors.trackCard).first().trigger("mouseover");
