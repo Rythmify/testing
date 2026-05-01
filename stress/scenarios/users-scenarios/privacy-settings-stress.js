@@ -1,6 +1,6 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
-export const BASE_URL =
+const BASE_URL =
   "https://rythmify-backend-dev.livelypebble-6b7965ef.uaenorth.azurecontainerapps.io/api/v1";
 
 export const options = {
@@ -20,33 +20,34 @@ const tokens = {};
 
 export default function () {
   if (!tokens[__VU]) {
-    const response = http.post(
+    const loginResponse = http.post(
       `${BASE_URL}/auth/login`,
       JSON.stringify({
-        identifier: "devops@rythmify.com",
-        password: "admin123!",
+        identifier: "ahmedattay8@gmail.com",
+        password: "Ahmedattay66",
       }),
       { headers: { "Content-Type": "application/json" } },
     );
 
-    if (response.status !== 200) {
-      console.error("Login failed: " + response.status);
+    if (loginResponse.status !== 200) {
+      console.error("Login failed: " + loginResponse.status);
       sleep(1);
       return;
     }
+    console.log("login status: " + loginResponse.status);
+    console.log("login body: " + loginResponse.body);
 
-    tokens[__VU] = JSON.parse(response.body).data.access_token;
-    console.log("login status: " + response.status);
-    console.log("login body: " + response.body);
+    tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
   }
 
-  const response = http.get(`${BASE_URL}/admin/analytics`, {
+  const response = http.get(`${BASE_URL}/users/me/privacy-settings`, {
     headers: {
       Authorization: `Bearer ${tokens[__VU]}`,
     },
   });
-  console.log("analytics status: " + response.status);
-  console.log("analytics body: " + response.body);
+
+  console.log("privacy-settings status: " + response.status);
+  console.log("privacy-settings body: " + response.body);
 
   check(response, {
     "status is 200": (r) => r.status === 200,
@@ -58,7 +59,7 @@ export default function () {
       }
     },
     "no 500 server error": (r) => r.status !== 500,
-    "no 403 forbidden": (r) => r.status !== 403,
+    "no 404 not found": (r) => r.status !== 404,
   });
 
   sleep(1);

@@ -5,32 +5,32 @@ const BASE_URL = 'https://rythmify-backend-dev.livelypebble-6b7965ef.uaenorth.az
 
 export const options = {
     stages: [
-        { duration: '1m', target: 50  },
-        { duration: '3m', target: 100 },
-        { duration: '1m', target: 150 },
-        { duration: '2m', target: 0   },
+        { duration: '10s', target: 0   }, // start at 0
+        { duration: '30s', target: 500 }, // instant spike to 500 users
+        { duration: '1m',  target: 500 }, // hold the spike
+        { duration: '30s', target: 0   }, // drop back to 0
     ],
     thresholds: {
-        http_req_duration: ['p(95)<500'],
-        http_req_failed:   ['rate<0.01'],
+        http_req_duration: ['p(95)<2000'], // higher threshold for spike
+        http_req_failed:   ['rate<0.05'],  // allow 5% failure under spike
     },
 };
 
 const searchQueries = [
-    'Quran',                //Playlist
-    'Surah_Elmudsar',       //Track
-    'أناوأخي',              //Track
-    'Yomna',                //Profile
-    'Quran Recitation',     //not in db
+    //Playlists
+    'Quran',                
+    'Spacetoon',
+    //Tracks 
+    'Surah_Elmudsar',       
+    'سورة النجم',
+    'أناوأخي',             
+    //Profiles
+    'Yomna',  
+    'Alyaa',              
+    //not in db
+    'Quran Recitation',     
     'Islamic Lecture',
     'Personal Development',
-    'Business & Entrepreneurship',
-    'Sports & Fitness',
-    'Mental Health & Wellness',
-    'Science & Technology',
-    'True Crime & Society',
-    'Daily 5-Minute Talks',
-    'Motivation & Reminders'
 ];
 
 export default function () {
