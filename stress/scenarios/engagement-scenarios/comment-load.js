@@ -1,20 +1,23 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
+
 const BASE_URL =
   "https://rythmify-backend-dev.livelypebble-6b7965ef.uaenorth.azurecontainerapps.io/api/v1";
-const trackId = ["3eaab4b9-4412-41bc-8a42-9bbbde9f418c"];
+const trackId = "3eaab4b9-4412-41bc-8a42-9bbbde9f418c";
+const expectedDeleteStatuses = http.expectedStatuses(204, 403);
+
 export const options = {
   stages: [
-    { duration: "1m", target: 50 }, // ramp up to 50 users over 1 minute
-    { duration: "3m", target: 100 }, // stay at 100 users for 3 minutes
-    { duration: "1m", target: 150 }, // ramp up to 150 users over 1 minute
-    { duration: "2m", target: 0 }, // ramp down to 0 users over 2 minutes
+    { duration: "2m", target: 30 },
+    { duration: "10m", target: 30 },
+    { duration: "2m", target: 0 },
   ],
   thresholds: {
     http_req_duration: ["p(95)<500"],
     http_req_failed: ["rate<0.01"],
   },
 };
+
 const tokens = {};
 
 export default function () {
@@ -40,23 +43,50 @@ export default function () {
     tokens[__VU] = JSON.parse(loginResponse.body).data.access_token;
   }
 
-  const likeResponse = http.post(`${BASE_URL}/tracks/${trackId}/like`, null, {
-    headers: {
-      Authorization: `Bearer ${tokens[__VU]}`,
-      "Content-Type": "application/json",
-    },
-  });
-  console.log("like status: " + likeResponse.status);
-  console.log("like body: " + likeResponse.body);
-
-  http.del(`${BASE_URL}/tracks/${trackId}/like`, null, {
-    headers: {
-      Authorization: `Bearer ${tokens[__VU]}`,
-      "Content-Type": "application/json",
-    },
+  const commentPayload = JSON.stringify({
+    content: `k6 stress comment from VU ${__VU}`,
+    track_timestamp: 15,
   });
 
-  check(likeResponse, {
+  const commentResponse = http.post(
+    `${BASE_URL}/tracks/${trackId}/comments`,
+    commentPayload,
+    {
+      headers: {
+        Authorization: `Bearer ${tokens[__VU]}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  console.log("comment status: " + commentResponse.status);
+  console.log("comment body: " + commentResponse.body);
+
+  let createdCommentId = null;
+  try {
+    createdCommentId = JSON.parse(commentResponse.body).data.comment_id;
+  } catch (e) {
+    createdCommentId = null;
+  }
+
+  if (createdCommentId) {
+    const deleteResponse = http.del(
+      `${BASE_URL}/comments/${createdCommentId}`,
+      null,
+      {
+        responseCallback: expectedDeleteStatuses,
+        headers: {
+          Authorization: `Bearer ${tokens[__VU]}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    console.log("delete status: " + deleteResponse.status);
+    console.log("delete body: " + deleteResponse.body);
+  }
+
+  check(commentResponse, {
     "is status 200 or 201": (r) => r.status === 200 || r.status === 201,
     "no 401 unauthorized": (r) => r.status !== 401,
     "no 403 not allowed action": (r) => r.status !== 403,
