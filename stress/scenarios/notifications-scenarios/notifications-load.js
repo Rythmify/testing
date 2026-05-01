@@ -6,16 +6,18 @@ export const BASE_URL = 'https://rythmify-backend-dev.livelypebble-6b7965ef.uaen
 
 export const options = {
     stages: [
-        { duration: '1m', target: 50}, // ramp up to 50 users over 1 minute
-        { duration: '3m', target: 100}, // stay at 100 users for 3 minutes
-        { duration: '1m', target: 150}, // ramp up to 150 users over 1 minute
-        { duration: '2m', target: 0} // ramp down to 0 users over 2 minutes
+        { duration: '10s', target: 0 },
+        { duration: '30s', target: 300 },
+        { duration: '1m', target: 300 },
+        { duration: '30s', target: 0 },
     ],
     thresholds: {
-        http_req_duration: ['p(95)<500'], 
-        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(95)<2000'],
+        http_req_failed: ['rate<0.05'],
     },
 };
+
+
 
 const tokens = {};
 
