@@ -21,6 +21,7 @@ export const FeedSelectors = {
   trackCard: '[data-test="track-card"]',
   trackCardPlayBtn: '[data-test="track-card-play-btn"]',
   trackCardBtnLike: '[data-test="track-card-btn-like"]',
+  feedSidebar: '[data-test="feed-sidebar"]',
 };
 
 export const SearchSelectors = {
