@@ -7,12 +7,12 @@ const clickIfNotAlreadyActive = (containerSelector, buttonSelector) => {
     .find(buttonSelector)
     .first()
     .then(($button) => {
-    const className = $button.attr("class") || "";
+      const className = $button.attr("class") || "";
 
-    if (!className.includes("text-accent")) {
-      cy.wrap($button).click();
-    }
-  });
+      if (!className.includes("text-accent")) {
+        cy.wrap($button).click();
+      }
+    });
 };
 
 describe("Library Page", () => {
@@ -105,7 +105,10 @@ describe("Library Page", () => {
       .then((href) => {
         const artistUserName = (href || "").split("/").filter(Boolean)[0];
 
-        clickIfNotAlreadyActive(DiscoverSelectors.stickyPlayer, PlaylistsSelectors.playerFollowButton);
+        clickIfNotAlreadyActive(
+          DiscoverSelectors.stickyPlayer,
+          PlaylistsSelectors.playerFollowButton,
+        );
 
         cy.visit("/you/library");
         cy.get(PlaylistsSelectors.libraryFollowing).should("be.visible");
@@ -124,7 +127,10 @@ describe("Library Page", () => {
     cy.get(PlaylistsSelectors.playerTrackTitle)
       .invoke("text")
       .then((trackTitle) => {
-        clickIfNotAlreadyActive(DiscoverSelectors.stickyPlayer, PlaylistsSelectors.playerLikeButton);
+        clickIfNotAlreadyActive(
+          DiscoverSelectors.stickyPlayer,
+          PlaylistsSelectors.playerLikeButton,
+        );
 
         cy.visit("/you/library");
         cy.get(PlaylistsSelectors.libraryLikes).should("be.visible");
