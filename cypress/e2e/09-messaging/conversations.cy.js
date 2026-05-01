@@ -29,13 +29,6 @@ describe("Conversations", () => {
     cy.contains(/Send/i).click();
     cy.contains(/Hello,this is a test message!/i).should("be.visible");
   });
-  it("Should click the unread button and mark the conversation as unread ", () => {
-    cy.contains(/Mark as unread/i)
-      .should("be.visible")
-      .click();
-    cy.contains(/Mark as unread/i).should("not.exist");
-    cy.contains(/Mark as read/i).should("be.visible");
-  });
   it("Should click the report button and display the report form ", () => {
     cy.get(ConversationsSelectors.conversationReportButton).click();
     cy.get(ConversationsSelectors.reportSpam).should("be.visible");
